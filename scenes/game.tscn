@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cppyyv1etyp1c"]
+[gd_scene load_steps=4 format=3 uid="uid://cppyyv1etyp1c"]
 
 [ext_resource type="PackedScene" uid="uid://bxfxwsrjy3r8y" path="res://scenes/player.tscn" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://5aum8h7p0dgt" path="res://scenes/UI.tscn" id="2_yqjtg"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_uwrxv"]
 
@@ -16,3 +17,9 @@ zoom = Vector2(2, 2)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
 position = Vector2(0, 1)
 shape = SubResource("WorldBoundaryShape2D_uwrxv")
+
+[node name="Control" parent="." instance=ExtResource("2_yqjtg")]
+offset_left = -290.0
+offset_top = -170.0
+offset_right = -290.0
+offset_bottom = -170.0
