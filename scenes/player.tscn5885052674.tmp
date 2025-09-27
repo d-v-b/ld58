@@ -37,7 +37,7 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 0.5,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_qhqgy")
 }, {
 "duration": 1.0,
@@ -49,9 +49,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fjrip")
 }],
-"loop": false,
+"loop": true,
 "name": &"shoot",
-"speed": 10.0
+"speed": 5.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3v2ag"]
@@ -110,7 +110,7 @@ script = ExtResource("1_g2els")
 [node name="Body" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_dqkch")
-animation = &"shoot"
+animation = &"idle"
 autoplay = "idle"
 script = ExtResource("3_qlg0r")
 
