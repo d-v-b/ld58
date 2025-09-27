@@ -1,25 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://cppyyv1etyp1c"]
+[gd_scene load_steps=5 format=3 uid="uid://cppyyv1etyp1c"]
 
 [ext_resource type="PackedScene" uid="uid://bxfxwsrjy3r8y" path="res://scenes/player.tscn" id="1_uwrxv"]
-[ext_resource type="PackedScene" uid="uid://5aum8h7p0dgt" path="res://scenes/UI.tscn" id="2_yqjtg"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_uwrxv"]
+[ext_resource type="Script" uid="uid://b3fi33fnu3el" path="res://scripts/game.gd" id="1_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://bkucn2wfqohgv" path="res://scenes/enemy.tscn" id="2_lnu2h"]
+[ext_resource type="PackedScene" path="res://scenes/Background.tscn" id="3_lnu2h"]
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_yqjtg")
+enemy_scene = ExtResource("2_lnu2h")
 
 [node name="Player" parent="." instance=ExtResource("1_uwrxv")]
+z_index = 5
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
 
-[node name="Floor" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
-position = Vector2(0, 1)
-shape = SubResource("WorldBoundaryShape2D_uwrxv")
-
-[node name="Control" parent="." instance=ExtResource("2_yqjtg")]
-offset_left = -290.0
-offset_top = -170.0
-offset_right = -290.0
-offset_bottom = -170.0
+[node name="Background" parent="." instance=ExtResource("3_lnu2h")]
