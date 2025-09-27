@@ -1,20 +1,26 @@
 extends CharacterBody2D
+class_name gamejam_player
 
 const SPEED = 100.0
 const RELOAD_TIME = 1.0
 
+
 var projectile = preload("res://scenes/projectile.tscn")
 var last_shot = 1000.0
+var direction = 0; #left = -1, right = 1
+
+signal shoot
 
 
 func _ready() -> void:
 	var window_size = get_viewport().get_visible_rect().size * 0.5
-	position.y = (window_size.y * 0.5) - 10
+	position.y = (window_size.y * 0.5) - 50
 	print(window_size.y, " ", position.y)
 	
 func _shoot() -> void:
 	if last_shot < RELOAD_TIME: return
 	
+	shoot.emit()
 	var my_projectile = projectile.instantiate() as Node2D
 	my_projectile.position = position
 	my_projectile.position.y += -50
@@ -32,7 +38,7 @@ func _physics_process(delta: float) -> void:
 	var window_size = get_viewport().get_visible_rect().size * 0.5
 	var movement;
 	
-	var direction := Input.get_axis("move_left", "move_right")
+	direction = Input.get_axis("move_left", "move_right")
 	
 	if direction:
 		movement = direction * SPEED * delta
