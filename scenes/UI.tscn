@@ -1,0 +1,18 @@
+[gd_scene load_steps=0 format=3 uid="uid://5aum8h7p0dgt"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 144.0
+offset_bottom = 61.0
+bbcode_enabled = true
+text = "SCORE [color=green]0[/color]"
