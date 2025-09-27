@@ -1,7 +1,11 @@
 extends CharacterBody2D
 
-
 const SPEED = 100.0
+const RELOAD_TIME = 1.0
+
+var projectile = preload("res://scenes/projectile.tscn")
+var last_shot = 1000.0
+
 
 func _ready() -> void:
 	var window_size = get_viewport().get_visible_rect().size * 0.5
@@ -9,6 +13,13 @@ func _ready() -> void:
 	print(window_size.y, " ", position.y)
 	
 func _shoot() -> void:
+	if last_shot < RELOAD_TIME: return
+	
+	var my_projectile = projectile.instantiate() as Node2D
+	my_projectile.position = position
+	my_projectile.position.y += -50
+	get_tree().get_root().add_child(my_projectile)
+	last_shot = 0.0
 	return
 	
 func _input(event: InputEvent) -> void:
@@ -16,6 +27,8 @@ func _input(event: InputEvent) -> void:
 		_shoot()
 
 func _physics_process(delta: float) -> void:
+	last_shot += delta
+	
 	var window_size = get_viewport().get_visible_rect().size * 0.5
 	var movement;
 	
