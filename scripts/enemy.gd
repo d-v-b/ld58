@@ -1,12 +1,15 @@
 extends CharacterBody2D
 
 @export var speed: int
+@export var window_padding: int
 
 const ORIGIN = Vector2(-250, -128)
-const BOUNDARIES = [-250, 250]
+var boundaries = Array()
 
 func _ready() -> void:
 	position = ORIGIN
+	var window_size = get_node("/root/Game").window_size / 2
+	boundaries = [-(window_size.x - window_padding), (window_size.x - window_padding)]
 
 func _physics_process(delta: float) -> void:
 	get_direction()
@@ -14,9 +17,9 @@ func _physics_process(delta: float) -> void:
 
 var direction = 1
 func get_direction() -> void:
-	if position.x < BOUNDARIES.min():
+	if position.x < boundaries.min():
 		direction = 1
-	elif position.x > BOUNDARIES.max():
+	elif position.x > boundaries.max():
 		direction = -1
 	velocity.x = move_toward(velocity.x, direction, speed)
 

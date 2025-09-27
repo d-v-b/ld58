@@ -1,24 +1,31 @@
 extends CharacterBody2D
 class_name gamejam_player
 
-const SPEED = 100.0
-const RELOAD_TIME = 1.0
+@export var window_padding: int
+@export var speed: int
+@export var reload_time: float
+@export var last_shot: float
 
 
 var projectile = preload("res://scenes/projectile.tscn")
-var last_shot = 1000.0
 var direction = 0; #left = -1, right = 1
 
 signal shoot
 
+var __window_size: Vector2
+var window_size: Vector2:
+	get:
+		if not __window_size: __window_size = get_node("/root/Game").window_size / 2
+		return __window_size
+
+func _init() -> void:
+	pass
 
 func _ready() -> void:
-	var window_size = get_viewport().get_visible_rect().size * 0.5
-	position.y = (window_size.y * 0.5) - 50
-	print(window_size.y, " ", position.y)
+	pass
 	
 func _shoot() -> void:
-	if last_shot < RELOAD_TIME: return
+	if last_shot < reload_time: return
 	
 	shoot.emit()
 	var my_projectile = projectile.instantiate() as Node2D
@@ -34,13 +41,9 @@ func _input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	last_shot += delta
-	
-	var window_size = get_viewport().get_visible_rect().size * 0.5
-	var movement;
-	
 	direction = Input.get_axis("move_left", "move_right")
 	
 	if direction:
-		movement = direction * SPEED * delta
+		var movement = direction * speed * delta
 		var new_position = position.x + movement
-		position.x = clamp(new_position, -window_size.x * 0.5, window_size.x * 0.5)
+		position.x = clamp(new_position, -(window_size.x - window_padding), (window_size.x - window_padding))
