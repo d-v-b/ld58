@@ -1,11 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://cppyyv1etyp1c"]
+[gd_scene load_steps=6 format=3 uid="uid://cppyyv1etyp1c"]
 
 [ext_resource type="PackedScene" uid="uid://bxfxwsrjy3r8y" path="res://scenes/player.tscn" id="1_uwrxv"]
-[ext_resource type="Script" uid="uid://c1sq8rmcy64dr" path="res://scenes/game.gd" id="1_yqjtg"]
+[ext_resource type="Script" uid="uid://b3fi33fnu3el" path="res://scripts/game.gd" id="1_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://c0444r2lrkvj3" path="res://scenes/Background.tscn" id="3_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://bkucn2wfqohgv" path="res://scenes/enemy.tscn" id="2_lnu2h"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_uwrxv"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_yqjtg")
+enemy_scene = ExtResource("2_lnu2h")
 
 [node name="Player" parent="." instance=ExtResource("1_uwrxv")]
 z_index = 5
