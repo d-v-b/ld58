@@ -106,6 +106,10 @@ animations = [{
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_g2els")
+window_padding = 25
+speed = 100
+reload_time = 1.0
+last_shot = 1000.0
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
