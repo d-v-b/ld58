@@ -1,9 +1,9 @@
-extends Node2D
+extends Area2D
 
-var speed = -40
+var speed = -120
 
 func _ready():
-	connect("area_entered", Callable(self, "_on_area_entered"))
+	connect("body_entered", Callable(self, "_on_area_entered"))
 
 func _process(delta: float) -> void:
 	var window_size = get_viewport().get_visible_rect().size
@@ -12,4 +12,5 @@ func _process(delta: float) -> void:
 	position.y += speed * delta
 
 func _on_area_entered(object: CollisionObject2D):
-	print("collision detected")
+	if object.has_method("_on_hit"):
+		object._on_hit()
