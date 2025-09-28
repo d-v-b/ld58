@@ -15,3 +15,6 @@ enemy_padding = 2
 
 [node name="LineShapeCollisionBox" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_6jsj7")
+
+[connection signal="end_of_cycle" from="." to="." method="_on_end_of_cycle"]
+[connection signal="end_of_line" from="." to="." method="_on_end_of_line"]
