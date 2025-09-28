@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bicvdxp6ontei" path="res://assets/Pixel Adventure 1/Free/Main Characters/Ninja Frog/Run (32x32).png" id="2_4ra3w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4gyqm"]
+size = Vector2(30, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qi2p4"]
 atlas = ExtResource("2_4ra3w")

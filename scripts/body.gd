@@ -14,7 +14,6 @@ func _process(delta: float) -> void:
 	return
 
 func _on_animation_finished() -> void:
-	print("hi")
 	if animation == "shoot":
 		animation = "idle"
 		play()

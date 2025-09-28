@@ -1,10 +1,14 @@
 extends CharacterBody2D
+class_name Enemy
 
 @export var speed: int
 @export var window_padding: int
+@export var points: int = 100
 
 const ORIGIN = Vector2(-250, -128)
 var boundaries = Array()
+
+signal died(points: int)
 
 func _ready() -> void:
 	position = ORIGIN
@@ -25,4 +29,9 @@ func get_direction() -> void:
 
 # Note: temporary, needed for scene deletion?
 func _on_death():
+	emit_signal("died", points)
 	queue_free()
+	
+func _on_hit():
+	_on_death()
+	return
