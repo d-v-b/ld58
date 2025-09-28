@@ -7,19 +7,21 @@ extends CharacterBody2D
 @export var enemy_speed_increment: int = 30
 @export var side_padding: int = 20
 
-var boundaries = Array()
+var boundaries: Array
+var children_count: int = 0
 
 signal end_of_line
 signal end_of_cycle
+signal enemy_line_empty
 
 func _ready() -> void:
-	position = Vector2(0, -250)
 	var line_size: Vector2
 	for n in enemy_number:
 		var enemy = init_enemy(n)
 		line_size.x += enemy.width + enemy_padding
 		line_size.y = enemy.height
 		add_child(enemy)
+		children_count += 1
 	set_shape(line_size)
 	set_boundaries()
 	
@@ -28,6 +30,7 @@ func init_enemy(n: int) -> Enemy:
 		var origin = Vector2(-(((enemy.width + enemy_padding) * enemy_number) / 2) + (enemy.width / 2), 0)
 		origin.x += (enemy.width + enemy_padding) * n
 		enemy.set_origin(origin)
+		enemy.connect("died", _on_enemy_died_in_line)
 		return enemy
 
 func set_shape(line_size: Vector2) -> void:
@@ -37,6 +40,7 @@ func set_boundaries() -> void:
 	var window_size = get_node("/root/Game").window_size / 2
 	var offset = ($LineShapeCollisionBox.shape.size.x / 2) + side_padding
 	boundaries = [-(window_size.x - offset), (window_size.x - offset)]
+	position = Vector2(-(window_size.x - offset), -(window_size.y - 100))
 
 func _physics_process(delta: float) -> void:
 	get_direction()
@@ -57,3 +61,11 @@ func _on_end_of_line() -> void:
 
 func _on_end_of_cycle() -> void:
 	enemy_speed += enemy_speed_increment
+
+func _on_enemy_died_in_line(points: int) -> void:
+	children_count -= 1
+	if children_count <= 0:
+		enemy_line_empty.emit()
+
+func _on_enemy_line_empty() -> void:
+	queue_free()

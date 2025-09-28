@@ -18,3 +18,4 @@ shape = SubResource("RectangleShape2D_6jsj7")
 
 [connection signal="end_of_cycle" from="." to="." method="_on_end_of_cycle"]
 [connection signal="end_of_line" from="." to="." method="_on_end_of_line"]
+[connection signal="enemy_line_empty" from="." to="." method="_on_enemy_line_empty"]
