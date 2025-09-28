@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://cddotlv44ngxu"]
+
+[ext_resource type="Script" uid="uid://dwgm80dskgbx0" path="res://scripts/enemy_line.gd" id="1_blwkm"]
+[ext_resource type="PackedScene" uid="uid://bkucn2wfqohgv" path="res://scenes/enemy.tscn" id="2_6jsj7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6jsj7"]
+
+[node name="EnemyLine" type="CharacterBody2D"]
+collision_layer = 64
+collision_mask = 128
+motion_mode = 1
+script = ExtResource("1_blwkm")
+enemy_scene = ExtResource("2_6jsj7")
+enemy_padding = 2
+
+[node name="LineShapeCollisionBox" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_6jsj7")
