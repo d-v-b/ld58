@@ -1,11 +1,14 @@
 extends CharacterBody2D
 
+class_name EnemyLine
+
 @export var enemy_scene: PackedScene
 @export var enemy_padding: int = 1
-@export var enemy_number: int = 10
+@export var enemy_number: int = 3
 @export var enemy_speed: int = 100
 @export var enemy_speed_increment: int = 30
 @export var side_padding: int = 20
+@export var bottom_padding: int = 3
 
 var boundaries: Array
 var children_count: int = 0
@@ -13,6 +16,10 @@ var children_count: int = 0
 signal end_of_line
 signal end_of_cycle
 signal enemy_line_empty
+
+static func Spawn(parent: Node2D) -> void:
+	var enemy_line := preload("res://scenes/enemy_line.tscn").instantiate()
+	parent.add_child(enemy_line)
 
 func _ready() -> void:
 	var line_size: Vector2
@@ -35,7 +42,7 @@ func init_enemy(n: int) -> Enemy:
 
 func set_shape(line_size: Vector2) -> void:
 	$LineShapeCollisionBox.shape.size = line_size
-	
+
 func set_boundaries() -> void:
 	var window_size = get_node("/root/Game").window_size / 2
 	var offset = ($LineShapeCollisionBox.shape.size.x / 2) + side_padding
@@ -57,7 +64,7 @@ func get_direction() -> void:
 var direction = 1
 func _on_end_of_line() -> void:
 	direction *= -1
-	position.y += $LineShapeCollisionBox.shape.size.y / 2
+	position.y += $LineShapeCollisionBox.shape.size.y + bottom_padding
 
 func _on_end_of_cycle() -> void:
 	enemy_speed += enemy_speed_increment
