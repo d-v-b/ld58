@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cppyyv1etyp1c"]
+[gd_scene load_steps=9 format=3 uid="uid://cppyyv1etyp1c"]
 
 [ext_resource type="PackedScene" uid="uid://bxfxwsrjy3r8y" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://b3fi33fnu3el" path="res://scripts/game.gd" id="1_yqjtg"]
@@ -6,6 +6,20 @@
 [ext_resource type="PackedScene" uid="uid://c0444r2lrkvj3" path="res://scenes/background.tscn" id="3_lnu2h"]
 [ext_resource type="Script" uid="uid://be6vgpqth88xg" path="res://scripts/UI.gd" id="5_iywne"]
 [ext_resource type="Script" uid="uid://dqophcf3reb7r" path="res://scripts/ammo_bar.gd" id="6_p57ef"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p57ef"]
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u5sy4"]
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_yqjtg")
@@ -43,4 +57,7 @@ offset_left = 336.0
 offset_top = 237.0
 offset_right = 526.0
 offset_bottom = 272.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/background = SubResource("StyleBoxFlat_p57ef")
+theme_override_styles/fill = SubResource("StyleBoxFlat_u5sy4")
 script = ExtResource("6_p57ef")
