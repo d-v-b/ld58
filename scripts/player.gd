@@ -3,13 +3,16 @@ class_name gamejam_player
 
 @export var window_padding: int
 @export var speed: int
+@export var shoot_cooldown: float
 @export var reload_time: float
 @export var last_shot: float
 @export var max_ammo: int
-
+@onready var reload_timer: Timer = $ReloadTimer
 var current_ammo: int
 var projectile = preload("res://scenes/projectile.tscn")
 var direction = 0; #left = -1, right = 1
+var reloading: bool = false;
+var bonus_reloading: bool = false;
 
 signal shoot
 signal reload
@@ -28,7 +31,7 @@ func _ready() -> void:
 	pass
 	
 func _shoot() -> void:
-	if last_shot < reload_time or current_ammo <= 0: return
+	if last_shot < shoot_cooldown or current_ammo <= 0 or reloading == true: return
 	
 	current_ammo -= 1
 	shoot.emit()
@@ -41,17 +44,31 @@ func _shoot() -> void:
 	return
 	
 func _reload() -> void:
-	if current_ammo == max_ammo: return
+	if bonus_reloading == true or current_ammo == max_ammo: return
 	
-	current_ammo = max_ammo
-	reload.emit()
+	reload_timer.start(reload_time)
+	reloading = true
+	return
+	
+func _bonus_reload() -> void:
+	if bonus_reloading == true: return
+	
+	bonus_reloading = true
+	if reload_timer.time_left <= reload_time / 4.0:
+		reload_timer.stop()
+		print("success")
+		_on_reload_timer_timeout()
+		return
+	print("failed")
 	return
 	
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		_shoot()
-	elif Input.is_action_just_pressed("reload"):
+	elif Input.is_action_just_pressed("reload") && reloading == false:
 		_reload()
+	elif Input.is_action_just_pressed("reload") && reloading == true:
+		_bonus_reload()
 
 func _physics_process(delta: float) -> void:
 	last_shot += delta
@@ -61,3 +78,10 @@ func _physics_process(delta: float) -> void:
 		var movement = direction * speed * delta
 		var new_position = position.x + movement
 		position.x = clamp(new_position, -(window_size.x - window_padding), (window_size.x - window_padding))
+
+
+func _on_reload_timer_timeout() -> void:
+	current_ammo = max_ammo
+	reload.emit()
+	reloading = false
+	bonus_reloading = false
