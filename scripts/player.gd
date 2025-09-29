@@ -5,12 +5,14 @@ class_name gamejam_player
 @export var speed: int
 @export var reload_time: float
 @export var last_shot: float
+@export var max_ammo: int
 
-
+var current_ammo: int
 var projectile = preload("res://scenes/projectile.tscn")
 var direction = 0; #left = -1, right = 1
 
 signal shoot
+signal reload
 
 var __window_size: Vector2
 var window_size: Vector2:
@@ -22,22 +24,34 @@ func _init() -> void:
 	pass
 
 func _ready() -> void:
+	current_ammo = max_ammo
 	pass
 	
 func _shoot() -> void:
-	if last_shot < reload_time: return
+	if last_shot < reload_time or current_ammo <= 0: return
 	
+	current_ammo -= 1
 	shoot.emit()
 	var my_projectile = projectile.instantiate() as Node2D
 	my_projectile.position = position
 	my_projectile.position.y += -50
 	get_tree().get_root().add_child(my_projectile)
 	last_shot = 0.0
+
+	return
+	
+func _reload() -> void:
+	if current_ammo == max_ammo: return
+	
+	current_ammo = max_ammo
+	reload.emit()
 	return
 	
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		_shoot()
+	elif Input.is_action_just_pressed("reload"):
+		_reload()
 
 func _physics_process(delta: float) -> void:
 	last_shot += delta
