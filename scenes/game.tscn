@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cppyyv1etyp1c"]
+[gd_scene load_steps=14 format=3 uid="uid://cppyyv1etyp1c"]
 
 [ext_resource type="PackedScene" uid="uid://bxfxwsrjy3r8y" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://b3fi33fnu3el" path="res://scripts/game.gd" id="1_yqjtg"]
@@ -8,7 +8,9 @@
 [ext_resource type="Script" uid="uid://b2sieu2muc1dt" path="res://scripts/reload_timer_ui.gd" id="6_0tnpc"]
 [ext_resource type="Script" path="res://scripts/ammo_bar.gd" id="6_p57ef"]
 [ext_resource type="Texture2D" uid="uid://da5um7igencmp" path="res://assets/CircleFilled.png" id="7_gee14"]
+[ext_resource type="AudioStream" uid="uid://dv11vgnss2ccr" path="res://assets/Gunshot.wav" id="7_vtaks"]
 [ext_resource type="Texture2D" uid="uid://qyudovwaxwkp" path="res://assets/CircleFrame.png" id="8_0tnpc"]
+[ext_resource type="AudioStream" uid="uid://junuy4k0yhgi" path="res://assets/reloadsound.wav" id="8_kvpfn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p57ef"]
 border_width_left = 5
@@ -61,6 +63,13 @@ script = ExtResource("6_0tnpc")
 [node name="ReloadTimer" type="Timer" parent="Player"]
 wait_time = 2.0
 one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("7_vtaks")
+volume_db = -21.203
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("8_kvpfn")
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
 

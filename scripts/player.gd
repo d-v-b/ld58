@@ -33,6 +33,9 @@ func _ready() -> void:
 func _shoot() -> void:
 	if last_shot < shoot_cooldown or current_ammo <= 0 or reloading == true: return
 	
+	var volume: float = randi_range(-10, 0)
+	$AudioStreamPlayer.volume_db = volume
+	$AudioStreamPlayer.play()
 	current_ammo -= 1
 	shoot.emit()
 	var my_projectile = projectile.instantiate() as Node2D
@@ -85,6 +88,7 @@ func _process(delta: float) -> void:
 	
 
 func _on_reload_timer_timeout() -> void:
+	$AudioStreamPlayer2.play()
 	current_ammo = max_ammo
 	reload.emit()
 	reloading = false
