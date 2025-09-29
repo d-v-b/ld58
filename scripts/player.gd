@@ -60,7 +60,6 @@ func _bonus_reload() -> void:
 	bonus_reloading = true
 	if reload_timer.time_left <= reload_time / 4.0:
 		reload_timer.stop()
-		print("success")
 		_on_reload_timer_timeout()
 		return
 	print("failed")
