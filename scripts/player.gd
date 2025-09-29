@@ -48,6 +48,7 @@ func _reload() -> void:
 	
 	reload_timer.start(reload_time)
 	reloading = true
+	$ReloadTimerUI.show()
 	return
 	
 func _bonus_reload() -> void:
@@ -79,9 +80,13 @@ func _physics_process(delta: float) -> void:
 		var new_position = position.x + movement
 		position.x = clamp(new_position, -(window_size.x - window_padding), (window_size.x - window_padding))
 
+func _process(delta: float) -> void:
+	$ReloadTimerUI.value = reload_timer.time_left
+	
 
 func _on_reload_timer_timeout() -> void:
 	current_ammo = max_ammo
 	reload.emit()
 	reloading = false
 	bonus_reloading = false
+	$ReloadTimerUI.hide()

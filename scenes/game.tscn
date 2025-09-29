@@ -1,11 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://cppyyv1etyp1c"]
+[gd_scene load_steps=12 format=3 uid="uid://cppyyv1etyp1c"]
 
 [ext_resource type="PackedScene" uid="uid://bxfxwsrjy3r8y" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://b3fi33fnu3el" path="res://scripts/game.gd" id="1_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://cddotlv44ngxu" path="res://scenes/enemy_line.tscn" id="2_iywne"]
 [ext_resource type="PackedScene" uid="uid://c0444r2lrkvj3" path="res://scenes/background.tscn" id="3_lnu2h"]
 [ext_resource type="Script" uid="uid://be6vgpqth88xg" path="res://scripts/UI.gd" id="5_iywne"]
+[ext_resource type="Script" uid="uid://b2sieu2muc1dt" path="res://scripts/reload_timer_ui.gd" id="6_0tnpc"]
 [ext_resource type="Script" path="res://scripts/ammo_bar.gd" id="6_p57ef"]
+[ext_resource type="Texture2D" uid="uid://da5um7igencmp" path="res://assets/CircleFilled.png" id="7_gee14"]
+[ext_resource type="Texture2D" uid="uid://qyudovwaxwkp" path="res://assets/CircleFrame.png" id="8_0tnpc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p57ef"]
 border_width_left = 5
@@ -32,6 +35,29 @@ shoot_cooldown = 0.5
 reload_time = 2.0
 max_ammo = 10
 
+[node name="ReloadTimerUI" type="TextureProgressBar" parent="Player"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+max_value = 2.0
+step = 0.02
+value = 2.0
+fill_mode = 5
+texture_under = ExtResource("7_gee14")
+texture_over = ExtResource("8_0tnpc")
+texture_progress = ExtResource("7_gee14")
+tint_under = Color(0, 0, 0, 0.40784314)
+tint_progress = Color(1, 0.7607843, 0.30980393, 1)
+script = ExtResource("6_0tnpc")
+
 [node name="ReloadTimer" type="Timer" parent="Player"]
 wait_time = 2.0
 one_shot = true
@@ -39,6 +65,7 @@ one_shot = true
 [node name="PlayerCamera" type="Camera2D" parent="."]
 
 [node name="Background" parent="." instance=ExtResource("3_lnu2h")]
+position = Vector2(3, 0)
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
