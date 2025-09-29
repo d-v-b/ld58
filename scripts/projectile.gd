@@ -14,3 +14,4 @@ func _process(delta: float) -> void:
 func _on_area_entered(object: CollisionObject2D):
 	if object.has_method("_on_hit"):
 		object._on_hit()
+		queue_free()
