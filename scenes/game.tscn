@@ -61,3 +61,9 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_styles/background = SubResource("StyleBoxFlat_p57ef")
 theme_override_styles/fill = SubResource("StyleBoxFlat_u5sy4")
 script = ExtResource("6_p57ef")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+
