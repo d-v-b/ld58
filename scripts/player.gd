@@ -62,7 +62,6 @@ func _bonus_reload() -> void:
 		reload_timer.stop()
 		_on_reload_timer_timeout()
 		return
-	print("failed")
 	return
 	
 func _input(event: InputEvent) -> void:
