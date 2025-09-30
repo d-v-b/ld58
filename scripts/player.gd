@@ -35,9 +35,6 @@ func _ready() -> void:
 func _shoot() -> void:
 	if last_shot < shoot_cooldown or current_ammo <= 0 or reloading == true: return
 	
-	var volume: float = randi_range(-10, 0)
-	$AudioStreamPlayer.volume_db = volume
-	$AudioStreamPlayer.play()
 	current_ammo -= 1
 	shoot.emit()
 	
@@ -47,7 +44,10 @@ func _shoot() -> void:
 		my_projectile.speed += 50
 		my_projectile.powered_up = true
 		my_projectile.position.y = -20
+		my_projectile.scale *= 2
+		$bullet_big.play()
 	else:
+		$Bullet.play()
 		my_projectile = projectile.instantiate() 
 	
 	# var my_projectile = projectile.instantiate() 
