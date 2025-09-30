@@ -113,3 +113,8 @@ autoplay = "default"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("3_4ra3w")
+
+[node name="AATimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="AATimer" to="." method="_on_aa_timer_timeout"]

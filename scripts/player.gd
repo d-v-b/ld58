@@ -40,7 +40,7 @@ func _shoot() -> void:
 	
 	var my_projectile
 	if reload_success == true:
-		my_projectile = projectile_big.instantiate() 
+		my_projectile = projectile_big.instantiate()
 		my_projectile.speed += 50
 		my_projectile.powered_up = true
 		my_projectile.position.y = -60
@@ -50,14 +50,11 @@ func _shoot() -> void:
 		$Bullet.play()
 		my_projectile = projectile.instantiate() 
 	
-	# var my_projectile = projectile.instantiate() 
+	my_projectile.team = true
 	my_projectile.position.x += position.x
 	my_projectile.position.y += position.y
 	my_projectile.position.y += -50
-	# if reload_success == true:
-	#	my_projectile.scale *= 20
-	#	my_projectile.speed += 50
-	#	my_projectile.powered_up = true
+
 	get_tree().get_root().add_child(my_projectile)
 	last_shot = 0.0
 	reload_success = false
@@ -103,6 +100,8 @@ func _physics_process(delta: float) -> void:
 func _process(delta: float) -> void:
 	$ReloadTimerUI.value = reload_timer.time_left
 	
+func _get_team() -> bool:
+	return true
 
 func _on_reload_timer_timeout() -> void:
 	$AudioStreamPlayer2.play()
