@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://bkucn2wfqohgv"]
+[gd_scene load_steps=18 format=3 uid="uid://bkucn2wfqohgv"]
 
 [ext_resource type="Script" uid="uid://d1amrkc4jku5n" path="res://scripts/enemy.gd" id="1_md0e3"]
 [ext_resource type="Texture2D" uid="uid://bicvdxp6ontei" path="res://assets/Pixel Adventure 1/Free/Main Characters/Ninja Frog/Run (32x32).png" id="2_4ra3w"]
+[ext_resource type="Texture2D" uid="uid://c4ucdxk15vqch" path="res://assets/drone.png" id="3_4ra3w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4gyqm"]
 size = Vector2(30, 32)
@@ -106,7 +107,9 @@ script = ExtResource("1_md0e3")
 shape = SubResource("RectangleShape2D_4gyqm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
 sprite_frames = SubResource("SpriteFrames_5hcft")
 autoplay = "default"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_4ra3w")
