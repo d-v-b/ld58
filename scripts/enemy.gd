@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name Enemy
 
-@export var points: int = 100
+@export var points: int = 10
 
 var origin: Vector2
 
@@ -27,5 +27,6 @@ func _on_death():
 	queue_free()
 	
 func _on_hit():
+	DmgNumbers.display_number(points, self.global_position)
 	_on_death()
 	return
