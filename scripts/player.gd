@@ -40,10 +40,12 @@ func _shoot() -> void:
 	current_ammo -= 1
 	shoot.emit()
 	var my_projectile = projectile.instantiate() as Node2D
-	if reload_success == true:
-		my_projectile.scale *= 10.0
 	my_projectile.position = position
 	my_projectile.position.y += -50
+	if reload_success == true:
+		my_projectile.scale *= 20
+		my_projectile.speed += 50
+		my_projectile.powered_up = true
 	get_tree().get_root().add_child(my_projectile)
 	last_shot = 0.0
 	reload_success = false
@@ -62,7 +64,7 @@ func _bonus_reload() -> void:
 	if bonus_reloading == true: return
 	
 	bonus_reloading = true
-	if reload_timer.time_left <= reload_time / 4.0:
+	if reload_timer.time_left <= 0.2:
 		reload_success = true
 		reload_timer.stop()
 		_on_reload_timer_timeout()
