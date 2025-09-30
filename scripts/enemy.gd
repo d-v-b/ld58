@@ -27,5 +27,6 @@ func _on_death():
 	queue_free()
 	
 func _on_hit():
+	DmgNumbers.display_number(points, self.global_position)
 	_on_death()
 	return
