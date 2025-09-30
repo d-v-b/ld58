@@ -1,16 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://d0gvgqskx2oy8"]
+[gd_scene load_steps=4 format=3 uid="uid://caofmbh4jyb2m"]
 
-[ext_resource type="Script" uid="uid://dkuu6du22snct" path="res://scripts/projectile.gd" id="1_q3m7n"]
-[ext_resource type="Texture2D" uid="uid://nh07y7stca5d" path="res://assets/bullet.png" id="2_q3m7n"]
+[ext_resource type="Script" uid="uid://dkuu6du22snct" path="res://scripts/projectile.gd" id="1_gk2k8"]
+[ext_resource type="Texture2D" uid="uid://nh07y7stca5d" path="res://assets/bullet.png" id="2_p0tis"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q3m7n"]
 size = Vector2(6, 11)
 
 [node name="Projectile" type="Area2D"]
-script = ExtResource("1_q3m7n")
+script = ExtResource("1_gk2k8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_q3m7n")
+texture = ExtResource("2_p0tis")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)

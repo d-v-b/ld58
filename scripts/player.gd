@@ -10,6 +10,7 @@ class_name gamejam_player
 @onready var reload_timer: Timer = $ReloadTimer
 var current_ammo: int
 var projectile = preload("res://scenes/projectile.tscn")
+var projectile_big = preload("res://scenes/projectile_big.tscn")
 var direction = 0; #left = -1, right = 1
 var reloading: bool = false;
 var bonus_reloading: bool = false;
@@ -34,18 +35,26 @@ func _ready() -> void:
 func _shoot() -> void:
 	if last_shot < shoot_cooldown or current_ammo <= 0 or reloading == true: return
 	
-	var volume: float = randi_range(-10, 0)
-	$AudioStreamPlayer.volume_db = volume
-	$AudioStreamPlayer.play()
 	current_ammo -= 1
 	shoot.emit()
-	var my_projectile = projectile.instantiate() as Node2D
-	my_projectile.position = position
-	my_projectile.position.y += -50
+	
+	var my_projectile
 	if reload_success == true:
-		my_projectile.scale *= 20
+		my_projectile = projectile_big.instantiate()
 		my_projectile.speed += 50
 		my_projectile.powered_up = true
+		my_projectile.position.y = -60
+		my_projectile.scale *= 2
+		$bullet_big.play()
+	else:
+		$Bullet.play()
+		my_projectile = projectile.instantiate() 
+	
+	my_projectile.team = true
+	my_projectile.position.x += position.x
+	my_projectile.position.y += position.y
+	my_projectile.position.y += -50
+
 	get_tree().get_root().add_child(my_projectile)
 	last_shot = 0.0
 	reload_success = false
@@ -91,6 +100,8 @@ func _physics_process(delta: float) -> void:
 func _process(delta: float) -> void:
 	$ReloadTimerUI.value = reload_timer.time_left
 	
+func _get_team() -> bool:
+	return true
 
 func _on_reload_timer_timeout() -> void:
 	$AudioStreamPlayer2.play()
