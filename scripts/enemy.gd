@@ -21,7 +21,7 @@ func set_origin(arg: Vector2):
 
 func _ready() -> void:
 	position = origin
-	reload_timer.start(aaSpeed)
+	reload_timer.start(randf_range(2, 10))
 
 func _physics_process(delta: float) -> void:
 	pass
