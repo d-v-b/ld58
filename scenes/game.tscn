@@ -33,7 +33,7 @@ enemy_line_scene = ExtResource("2_iywne")
 [node name="Player" parent="." instance=ExtResource("1_uwrxv")]
 z_index = 5
 position = Vector2(0, 281)
-shoot_cooldown = 0.5
+shoot_cooldown = 0.1
 reload_time = 0.5
 max_ammo = 10
 
