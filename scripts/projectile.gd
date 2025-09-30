@@ -8,7 +8,7 @@ func _ready():
 
 func _process(delta: float) -> void:
 	var window_size = get_viewport().get_visible_rect().size
-	if (position.y > window_size.y * 0.5 or position.y < window_size.y * -0.5):
+	if (position.y > window_size.y * 1 or position.y < window_size.y * -1):
 		queue_free()
 	position.y += speed * delta
 

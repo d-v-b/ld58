@@ -43,7 +43,7 @@ func _shoot() -> void:
 		my_projectile = projectile_big.instantiate() 
 		my_projectile.speed += 50
 		my_projectile.powered_up = true
-		my_projectile.position.y = -20
+		my_projectile.position.y = -60
 		my_projectile.scale *= 2
 		$bullet_big.play()
 	else:
