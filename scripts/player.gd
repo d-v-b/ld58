@@ -13,6 +13,7 @@ var projectile = preload("res://scenes/projectile.tscn")
 var direction = 0; #left = -1, right = 1
 var reloading: bool = false;
 var bonus_reloading: bool = false;
+var reload_success: bool = false
 
 signal shoot
 signal reload
@@ -39,10 +40,13 @@ func _shoot() -> void:
 	current_ammo -= 1
 	shoot.emit()
 	var my_projectile = projectile.instantiate() as Node2D
+	if reload_success == true:
+		my_projectile.scale *= 10.0
 	my_projectile.position = position
 	my_projectile.position.y += -50
 	get_tree().get_root().add_child(my_projectile)
 	last_shot = 0.0
+	reload_success = false
 
 	return
 	
@@ -59,6 +63,7 @@ func _bonus_reload() -> void:
 	
 	bonus_reloading = true
 	if reload_timer.time_left <= reload_time / 4.0:
+		reload_success = true
 		reload_timer.stop()
 		_on_reload_timer_timeout()
 		return

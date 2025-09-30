@@ -34,7 +34,6 @@ enemy_line_scene = ExtResource("2_iywne")
 z_index = 5
 position = Vector2(0, 281)
 shoot_cooldown = 0.5
-reload_time = 2.0
 max_ammo = 10
 
 [node name="ReloadTimerUI" type="TextureProgressBar" parent="Player"]
@@ -49,9 +48,9 @@ offset_right = 64.0
 offset_bottom = 64.0
 grow_horizontal = 2
 grow_vertical = 2
-max_value = 2.0
+max_value = 1.0
 step = 0.02
-value = 2.0
+value = 1.0
 fill_mode = 5
 texture_under = ExtResource("7_gee14")
 texture_over = ExtResource("8_0tnpc")
@@ -61,7 +60,6 @@ tint_progress = Color(1, 0.7607843, 0.30980393, 1)
 script = ExtResource("6_0tnpc")
 
 [node name="ReloadTimer" type="Timer" parent="Player"]
-wait_time = 2.0
 one_shot = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Player"]
