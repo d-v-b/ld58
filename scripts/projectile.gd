@@ -1,6 +1,7 @@
 extends Area2D
 
 var speed = -120
+var powered_up: bool = false
 
 func _ready():
 	connect("body_entered", Callable(self, "_on_area_entered"))
@@ -14,4 +15,6 @@ func _process(delta: float) -> void:
 func _on_area_entered(object: CollisionObject2D):
 	if object.has_method("_on_hit"):
 		object._on_hit()
-		queue_free()
+		# only destroy regular bullets on-hit, not big ones
+		if powered_up == false:
+			queue_free()
