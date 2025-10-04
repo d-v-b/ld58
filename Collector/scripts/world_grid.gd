@@ -1,5 +1,5 @@
 #@tool
-#extends Node2D
+extends Node2D
 #class_name WorldGrid
 #
 #const SIZE = Vector2(64, 64)
