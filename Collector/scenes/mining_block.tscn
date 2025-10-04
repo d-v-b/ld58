@@ -1,10 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://swkim5fvj60i"]
+[gd_scene load_steps=3 format=3 uid="uid://swkim5fvj60i"]
 
-[ext_resource type="Texture2D" uid="uid://b6n2rcl8h75ym" path="res://assets/mining_block.png" id="1_46eo0"]
 [ext_resource type="Script" uid="uid://dtq5gci0j3xnb" path="res://scripts/mining_block.gd" id="1_hy1y5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xy1sk"]
-size = Vector2(60, 60)
+size = Vector2(64, 64)
 
 [node name="MiningBlock" type="RigidBody2D"]
 input_pickable = true
@@ -12,19 +11,19 @@ contact_monitor = true
 max_contacts_reported = 20
 script = ExtResource("1_hy1y5")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_xy1sk")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_46eo0")
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.36078432, 0.23921569, 1, 1)
+polygon = PackedVector2Array(-32, 32, 32, 32, 32, -32, -32, -32)
 
 [node name="Overlay" type="Line2D" parent="."]
 visible = false
-points = PackedVector2Array(30, 31, -30, 31, -30, -29, 30, -29)
+points = PackedVector2Array(32, 32, -32, 32, -32, -32, 32, -32)
 closed = true
-width = 2.0
+width = 4.0
 default_color = Color(0.41960785, 0.8901961, 0.63529414, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_xy1sk")
 
 [connection signal="destroy" from="." to="." method="_on_destroy"]
 [connection signal="input_event" from="." to="." method="_on_input_event"]

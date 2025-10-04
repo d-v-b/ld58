@@ -56,6 +56,11 @@ action_mine={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="World"
+2d_physics/layer_10="Boundaries"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
