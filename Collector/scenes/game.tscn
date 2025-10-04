@@ -23,7 +23,6 @@ offset_left = -561.0
 offset_top = -393.0
 offset_right = 531.0
 offset_bottom = 388.0
-texture = SubResource("GradientTexture1D_lnu2h")
 script = ExtResource("2_lnu2h")
 
 [node name="Arena" type="Node2D" parent="."]
