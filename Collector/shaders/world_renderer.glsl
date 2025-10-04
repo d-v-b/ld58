@@ -68,6 +68,7 @@ void main() {
     
     if (cell == 1) //grass
     {
+        color = texture(atlas_texture, get_uv(dirt_top_mid, sub_cell_position));
         if (get_cell(cell_position + ivec2(0, -1)) == 0) // above is clear
         {
             if (get_cell(cell_position + ivec2(-1, 0)) == 0) // above and left are clear
@@ -85,7 +86,7 @@ void main() {
             
         }
 
-        else
+    else
         {
             color = texture(atlas_texture, get_uv(dirt_middle, sub_cell_position));
         }

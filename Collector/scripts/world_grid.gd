@@ -32,3 +32,5 @@ func get_cell(x, y):
 			#
 			#if(cell_value.value == 1):
 				#draw_rect(rect, Color(0.213, 0.412, 0.24, 1.0))
+			#else:
+				#draw_rect(rect, Color(0.515, 0.265, 0.379, 1.0))
