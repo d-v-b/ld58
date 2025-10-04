@@ -3,8 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_dispatch:
 
 env:
   GODOT_VERSION: 4.5
@@ -13,9 +12,13 @@ env:
 jobs:
   export-web:
     name: Web Export
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     container:
-      image: barichello/godot-ci:4.3
+      image: barichello/godot-ci:4.5
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,18 +31,14 @@ jobs:
       - name: Web Build
         run: |
           mkdir -v -p build/web
-          godot --headless --verbose --export-release "Web" build/web/index.html
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
+          cd Collector
+          godot --headless --verbose --export-release "Web" ../build/web/index.html
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: web
           path: build/web
-      - name: Install rsync 📚
-        run: |
-          apt-get update && apt-get install -y rsync
-      - name: Deploy to GitHub Pages 🚀
-        uses: JamesIves/github-pages-deploy-action@releases/v4
-        if: github.ref == 'refs/heads/main'
-        with:
-          branch: gh-pages
-          folder: build/web
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
