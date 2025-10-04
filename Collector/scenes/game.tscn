@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://tsmtvocl2gs3"]
+[gd_scene load_steps=6 format=3 uid="uid://tsmtvocl2gs3"]
 
 [ext_resource type="Script" uid="uid://b7k8d2qq5wept" path="res://scripts/game.gd" id="1_qbsmt"]
 [ext_resource type="PackedScene" uid="uid://bjlhj3x4t8g4p" path="res://scenes/player.tscn" id="2_cpr0p"]
+[ext_resource type="PackedScene" path="res://scenes/mining_block.tscn" id="2_lnu2h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
 size = Vector2(200, 40)
@@ -109,6 +110,9 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.4, 0.2, 0.1, 1)
+
+[node name="MiningBlock" parent="." instance=ExtResource("2_lnu2h")]
+position = Vector2(68, 447)
 
 [node name="Player" parent="." instance=ExtResource("2_cpr0p")]
 position = Vector2(0, 400)
