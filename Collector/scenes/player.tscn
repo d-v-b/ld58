@@ -2,20 +2,22 @@
 
 [ext_resource type="Script" uid="uid://chmfrm6bvpxm1" path="res://scripts/player.gd" id="1_t5m8q"]
 [ext_resource type="PackedScene" uid="uid://cm5fktnx76hjo" path="res://scenes/mining_direction.tscn" id="2_g2els"]
-[ext_resource type="PackedScene" uid="uid://26fueigt1juq" path="res://scenes/mining_block_selector.tscn" id="3_qhqgy"]
+[ext_resource type="PackedScene" path="res://scenes/mining_block_selector.tscn" id="3_qhqgy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
-size = Vector2(64, 64)
+size = Vector2(48, 48)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_t5m8q")
 
 [node name="PlayerVisual" type="Polygon2D" parent="."]
 color = Color(0.91162574, 0.32836854, 0.5839771, 1)
-polygon = PackedVector2Array(-32, -32, 32, -32, 32, 31, -32, 31)
+polygon = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
 
 [node name="PlayerBorder" type="Line2D" parent="."]
-points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+position = Vector2(-9.536743e-07, -9.536743e-07)
+scale = Vector2(0.6666666, 0.6666666)
+points = PackedVector2Array(-36.000004, -36.000004, 36.000004, -36.000004, 36.000004, 36.000004, -36.000004, 36.000004)
 closed = true
 width = 4.0
 default_color = Color(0.1, 0.3, 0.6, 1)
