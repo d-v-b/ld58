@@ -195,3 +195,62 @@ offset_left = -2048.0
 offset_right = 2048.0
 offset_bottom = 4096.0
 texture = ExtResource("12_dinhu")
+
+[node name="DeathOverlay" type="CanvasLayer" parent="."]
+
+[node name="Menu" type="Control" parent="DeathOverlay"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="DeathOverlay/Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.5
+offset_top = -22.5
+offset_right = 280.5
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "You died."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MenuBackground" type="Panel" parent="DeathOverlay/Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DeathOverlay/Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -71.0
+offset_top = 32.5
+offset_right = 71.0
+offset_bottom = 157.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Play again" type="Button" parent="DeathOverlay/Menu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Play again"
+
+[node name="Go to main menu" type="Button" parent="DeathOverlay/Menu/VBoxContainer"]
+layout_mode = 2
+text = "Go to main menu"

@@ -6,6 +6,43 @@
 [ext_resource type="Texture2D" uid="uid://d3ugus8k8pc57" path="res://assets/char_mine.png" id="4_dqkch"]
 [ext_resource type="Script" uid="uid://dxa2oseq1vhx4" path="res://scenes/player_animations.gd" id="5_qlg0r"]
 
+[sub_resource type="Animation" id="Animation_qhqgy"]
+resource_name = "player_death"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.46666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_dqkch"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qlg0r"]
+_data = {
+&"RESET": SubResource("Animation_dqkch"),
+&"player_death": SubResource("Animation_qhqgy")
+}
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
 size = Vector2(48, 48)
 
@@ -105,9 +142,15 @@ animations = [{
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_t5m8q")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_qlg0r")
+}
+
 [node name="PlayerVisual" type="Polygon2D" parent="."]
 visible = false
-color = Color(0.91162574, 0.32836854, 0.5839771, 1)
+color = Color(0, 0.32941177, 0.58431375, 1)
 polygon = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
 
 [node name="PlayerBorder" type="Line2D" parent="."]
@@ -117,7 +160,7 @@ scale = Vector2(0.6666666, 0.6666666)
 points = PackedVector2Array(-36.000004, -36.000004, 36.000004, -36.000004, 36.000004, 36.000004, -36.000004, 36.000004)
 closed = true
 width = 4.0
-default_color = Color(0.1, 0.3, 0.6, 1)
+default_color = Color(0.10200001, 0.3011999, 0.6, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_3vyb7")
@@ -128,9 +171,9 @@ block_selector = NodePath("../MiningBlockSelector")
 [node name="MiningBlockSelector" parent="." instance=ExtResource("3_qhqgy")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-4.7683716e-07, -8)
-scale = Vector2(3.9999998, 3.9999998)
+position = Vector2(0, -8)
+scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_3v2ag")
-animation = &"run"
-frame_progress = 0.9153468
+animation = &"idle"
+autoplay = "idle"
 script = ExtResource("5_qlg0r")
