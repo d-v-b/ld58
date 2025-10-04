@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 env:
-  GODOT_VERSION: 4.5
+  GODOT_VERSION: 4.3
   EXPORT_NAME: Collector
 
 jobs:
@@ -28,7 +28,8 @@ jobs:
       - name: Web Build
         run: |
           mkdir -v -p build/web
-          godot --headless --verbose --export-release "Web" build/web/index.html
+          cd Collector
+          godot --headless --verbose --export-release "Web" ../build/web/index.html
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
