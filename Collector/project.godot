@@ -17,7 +17,7 @@ config/icon="res://assets/icon.svg"
 
 [autoload]
 
-WorldGrid="*res://scripts/world_grid.gd"
+WorldGrid="res://scripts/world_grid.gd"
 
 [input]
 
