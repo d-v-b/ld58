@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bgh183yp2hi7y" path="res://scenes/hud.tscn" id="4_lbhrr"]
 [ext_resource type="Texture2D" uid="uid://bxlqn601e7qbm" path="res://assets/TopBackground.png" id="11_kvpfn"]
 [ext_resource type="Texture2D" uid="uid://gbir15ew0fxx" path="res://assets/underground_background.png" id="12_dinhu"]
+[ext_resource type="PackedScene" uid="uid://ckwh2ntmpj2ch" path="res://scenes/parallax_background.tscn" id="13_kvuet"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vtaks"]
 texture = ExtResource("2_0tnpc")
@@ -84,6 +85,7 @@ position = Vector2(300, -45)
 [node name="HUD" parent="." instance=ExtResource("4_lbhrr")]
 
 [node name="AboveGround Background" type="TextureRect" parent="."]
+visible = false
 custom_minimum_size = Vector2(4096, 4096)
 offset_left = -2048.0
 offset_top = -2443.0
@@ -156,3 +158,7 @@ text = "Play again"
 [node name="Go to main menu" type="Button" parent="DeathOverlay/Menu/VBoxContainer"]
 layout_mode = 2
 text = "Go to main menu"
+
+[node name="parallax_background" parent="." instance=ExtResource("13_kvuet")]
+z_index = -1
+position = Vector2(-405, -684)
