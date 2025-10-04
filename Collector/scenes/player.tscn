@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cgohnh6jevo5g"]
+[gd_scene load_steps=8 format=3 uid="uid://cgohnh6jevo5g"]
 
 [ext_resource type="Script" uid="uid://chmfrm6bvpxm1" path="res://scripts/player.gd" id="1_t5m8q"]
 [ext_resource type="PackedScene" uid="uid://cm5fktnx76hjo" path="res://scenes/mining_direction.tscn" id="2_g2els"]
@@ -40,104 +40,9 @@ _data = {
 &"RESET": SubResource("Animation_dqkch"),
 &"player_death": SubResource("Animation_qhqgy")
 }
-[ext_resource type="Texture2D" uid="uid://d3ugus8k8pc57" path="res://assets/char_mine.png" id="4_dqkch"]
-[ext_resource type="Script" uid="uid://dxa2oseq1vhx4" path="res://scenes/player_animations.gd" id="5_qlg0r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
 size = Vector2(48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
-atlas = ExtResource("4_dqkch")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tuyoq"]
-atlas = ExtResource("4_dqkch")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fjrip"]
-atlas = ExtResource("4_dqkch")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_smehm"]
-atlas = ExtResource("4_dqkch")
-region = Rect2(48, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ur7pv"]
-atlas = ExtResource("4_dqkch")
-region = Rect2(64, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_y4r1p"]
-atlas = ExtResource("4_dqkch")
-region = Rect2(80, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_d2wvv"]
-atlas = ExtResource("4_dqkch")
-region = Rect2(96, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_3v2ag"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qlg0r")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tuyoq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fjrip")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_smehm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ur7pv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_y4r1p")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_d2wvv")
-}],
-"loop": true,
-"name": &"all",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qlg0r")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qlg0r")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_d2wvv")
-}],
-"loop": true,
-"name": &"jump",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tuyoq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fjrip")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_smehm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ur7pv")
-}],
-"loop": true,
-"name": &"run",
-"speed": 5.0
-}]
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_t5m8q")
@@ -149,12 +54,10 @@ libraries = {
 }
 
 [node name="PlayerVisual" type="Polygon2D" parent="."]
-visible = false
-color = Color(0.91162574, 0.32836854, 0.5839771, 1)
+color = Color(0, 0.32941177, 0.58431375, 1)
 polygon = PackedVector2Array(-24, -24, 24, -24, 24, 24, -24, 24)
 
 [node name="PlayerBorder" type="Line2D" parent="."]
-visible = false
 position = Vector2(-9.536743e-07, -9.536743e-07)
 scale = Vector2(0.6666666, 0.6666666)
 points = PackedVector2Array(-36.000004, -36.000004, 36.000004, -36.000004, 36.000004, 36.000004, -36.000004, 36.000004)
@@ -169,11 +72,3 @@ shape = SubResource("RectangleShape2D_3vyb7")
 block_selector = NodePath("../MiningBlockSelector")
 
 [node name="MiningBlockSelector" parent="." instance=ExtResource("3_qhqgy")]
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-4.7683716e-07, -8)
-scale = Vector2(3.9999998, 3.9999998)
-sprite_frames = SubResource("SpriteFrames_3v2ag")
-animation = &"run"
-frame_progress = 0.9153468
-script = ExtResource("5_qlg0r")
