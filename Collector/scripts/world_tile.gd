@@ -11,13 +11,13 @@ func _ready() -> void:
 		grid.append([])
 		for x in _size.x:
 			var _cell = WorldCell.new()
-			var material = 1 if (y < 4) else 2
+			var _material = 1 if (y < 4) else 2
 			var rand_value = randi_range(0, 4)
 			
 			if rand_value == 0:
 				_cell.value = 0
 			else:
-				_cell.value = material
+				_cell.value = _material
 			
 			_cell.position = Vector2i(x, y)
 			_cell.world_position = position_grid_to_world(_cell.position)
