@@ -31,6 +31,8 @@ func _ready() -> void:
 			else:
 				set_cell(Vector2i(x, y) + _offset, 1, Vector2i(-1, -1))
 			
-func get_cell_coord_at_world_pos(vec2 world_position):
+func get_cell_coord_at_world_pos(world_position):
+	return
 	
-func get_cell(coord)
+func get_cell(coord):
+	return
