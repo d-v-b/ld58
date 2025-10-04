@@ -5,12 +5,6 @@ extends CharacterBody2D
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-func _ready():
-	var collision_shape = $CollisionShape2D
-	var rect_shape = RectangleShape2D.new()
-	rect_shape.size = Vector2(40, 40)
-	collision_shape.shape = rect_shape
-
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -19,8 +13,8 @@ func _physics_process(delta):
 		velocity.y = jump_velocity
 		
 	if Input.is_action_just_pressed("action_mine"):
-		if $MiningDirection.currently_selected_block:
-			$MiningDirection.currently_selected_block.mine.emit()
+		if $MiningBlockSelector.current:
+			$MiningBlockSelector.current.mine.emit()
 	
 	handle_input()
 	move_and_slide()
