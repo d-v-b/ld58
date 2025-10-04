@@ -1,49 +1,52 @@
 extends TileMapLayer
-class_name world_tile
+
+class_name WorldTile
 
 const _size = Vector2i(64, 64)
-const _offset = Vector2i(_size.x * -0.5, 0)
 
-const mining_block = preload("res://scenes/mining_block.tscn")
-
-var grid := []
+var grid: Array[Array]
 
 func _ready() -> void:
 	for y in _size.y:
-		var material = 1 if (y < 4) else 2
-		
-		var row := []
+		grid.append([])
 		for x in _size.x:
-			var _cell = cell.new()
+			var _cell = WorldCell.new()
+			var material = 1 if (y < 4) else 2
 			var rand_value = randi_range(0, 4)
-			_cell.value = 0 if (rand_value == 0) else material
 			
-			#var mining_blcok = mining_block.instantiate()
-			#mining_blcok.position = Vector2(64 * x, 64 * y)
-			#add_child(mining_blcok)
+			if rand_value == 0:
+				_cell.value = 0
+			else:
+				_cell.value = material
 			
-			row.append(_cell)
-		grid.append(row)
-	
-	
+			_cell.position = Vector2i(x, y)
+			_cell.world_position = position_grid_to_world(_cell.position)
+			grid[y].append(_cell)
+
 	for y in range(-1, _size.y):
 		for x in _size.x:
-			if y == -1:
-				set_cell(Vector2i(x, y) + _offset, 1, Vector2i(4, 0)  + choose_air_offset(x, y))
+			if y == _size.y - 1:
+				set_cell(Vector2i(x, y), 1, Vector2i(4, 0)  + choose_air_offset(x, y))
 			elif grid[y][x].value == 1:
-				set_cell(Vector2i(x, y) + _offset, 1, Vector2i(1, 2) + choose_tile_offset(x, y))
+				set_cell(Vector2i(x, y), 1, Vector2i(1, 2) + choose_tile_offset(x, y))
 			elif grid[y][x].value == 2:
-				set_cell(Vector2i(x, y) + _offset, 1, Vector2i(5, 2)  + choose_tile_offset(x, y))
+				set_cell(Vector2i(x, y), 1, Vector2i(5, 2)  + choose_tile_offset(x, y))
 			else:
-				set_cell(Vector2i(x, y) + _offset, 1, Vector2i(4, 0)  + choose_air_offset(x, y))
-				
-			
-func get_cell_coord_at_world_pos(world_position):
-	return
-	
-func get_cell(coord):
-	return
+				set_cell(Vector2i(x, y), 1, Vector2i(4, 0)  + choose_air_offset(x, y))
 
+func position_grid_to_world(grid_position: Vector2i) -> Vector2:
+	var world_position := Vector2(grid_position * tile_set.tile_size + tile_set.tile_size / 2)
+	return world_position
+
+func position_world_to_grid(world_position: Vector2) -> Vector2i:
+	var grid_position = Vector2i(world_position) / tile_set.tile_size
+	var cell = grid[grid_position.y][grid_position.x]
+	if cell:
+		cell.build()
+	return grid_position
+
+func get_grid_cell(grid_position: Vector2i) -> MiningBlock:
+	return grid[grid_position.y][grid_position.x].mining_block
 
 func choose_tile_offset(x: int, y: int) -> Vector2i:
 	var max_y := grid.size() - 1
