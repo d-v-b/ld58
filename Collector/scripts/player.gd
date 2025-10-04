@@ -8,6 +8,7 @@ func _ready():
 	rect_shape.size = Vector2(40, 40)
 	collision_shape.shape = rect_shape
 
+
 func _physics_process(_delta):
 	handle_input()
 	move_and_slide()
