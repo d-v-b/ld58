@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckp5qj1u4fqtn"]
+
+[ext_resource type="Script" uid="uid://b7k8d2qq5wept" path="res://scripts/Main.gd" id="1_0h3xr"]
+[ext_resource type="PackedScene" uid="uid://bjlhj3x4t8g4p" path="res://scenes/Player.tscn" id="2_m8k7n"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_0h3xr")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.8, 0.8)
+
+[node name="Arena" type="Node2D" parent="."]
+
+[node name="ArenaBackground" type="ColorRect" parent="Arena"]
+offset_left = -800.0
+offset_top = -600.0
+offset_right = 800.0
+offset_bottom = 600.0
+color = Color(0.2, 0.3, 0.2, 1)
+
+[node name="ArenaBorder" type="Line2D" parent="Arena"]
+points = PackedVector2Array(-800, -600, 800, -600, 800, 600, -800, 600, -800, -600)
+width = 10.0
+default_color = Color(0.8, 0.8, 0.8, 1)
+
+[node name="Player" parent="." instance=ExtResource("2_m8k7n")]
+position = Vector2(0, 0)
