@@ -21,6 +21,7 @@ offset_left = -800.0
 offset_top = -600.0
 offset_right = 800.0
 offset_bottom = 600.0
+mouse_filter = 1
 color = Color(0.2, 0.3, 0.2, 1)
 
 [node name="ArenaBorder" type="Line2D" parent="Arena"]

@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://swkim5fvj60i"]
+
+[ext_resource type="Texture2D" uid="uid://b6n2rcl8h75ym" path="res://assets/mining_block.png" id="1_46eo0"]
+[ext_resource type="Script" uid="uid://dtq5gci0j3xnb" path="res://scripts/mining_block.gd" id="1_hy1y5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xy1sk"]
+size = Vector2(60, 60)
+
+[node name="MiningBlock" type="StaticBody2D"]
+input_pickable = true
+script = ExtResource("1_hy1y5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_xy1sk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_46eo0")
+
+[connection signal="destroy" from="." to="." method="_on_destroy"]
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="mine" from="." to="." method="_on_mine"]
