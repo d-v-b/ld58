@@ -1,0 +1,86 @@
+[gd_scene load_steps=5 format=3 uid="uid://ku7ncpvrogms"]
+
+[ext_resource type="Script" uid="uid://liwaiv02rbt" path="res://scripts/main_menu.gd" id="1_l6cm7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l6cm7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ekxnf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bqqt6"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l6cm7")
+
+[node name="game_label" type="Label" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -141.5
+offset_top = -79.5
+offset_right = 141.5
+offset_bottom = 19.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 72
+text = "Digwit"
+horizontal_alignment = 1
+
+[node name="menu_background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = 40.0
+offset_right = -3.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="vbox_container" type="VBoxContainer" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -141.0
+offset_top = 38.5
+offset_right = 135.0
+offset_bottom = 205.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="start_button" type="Button" parent="vbox_container"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_l6cm7")
+text = "Start"
+
+[node name="options_button" type="Button" parent="vbox_container"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_ekxnf")
+text = "Settings"
+
+[node name="quit_button" type="Button" parent="vbox_container"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_bqqt6")
+text = "Quit"
+
+[connection signal="pressed" from="vbox_container/start_button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="vbox_container/options_button" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="vbox_container/quit_button" to="." method="_on_quit_button_pressed"]
