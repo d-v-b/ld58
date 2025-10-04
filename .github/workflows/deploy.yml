@@ -7,13 +7,13 @@ on:
     branches: [ main ]
 
 env:
-  GODOT_VERSION: 4.5
+  GODOT_VERSION: 4.3
   EXPORT_NAME: Collector
 
 jobs:
   export-web:
     name: Web Export
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     container:
       image: barichello/godot-ci:4.3
     steps:
@@ -28,7 +28,8 @@ jobs:
       - name: Web Build
         run: |
           mkdir -v -p build/web
-          godot --headless --verbose --export-release "Web" build/web/index.html
+          cd Collector
+          godot --headless --verbose --export-release "Web" ../build/web/index.html
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -38,7 +39,7 @@ jobs:
         run: |
           apt-get update && apt-get install -y rsync
       - name: Deploy to GitHub Pages 🚀
-        uses: JamesIves/github-pages-deploy-action@releases/v4
+        uses: JamesIves/github-pages-deploy-action@v4
         if: github.ref == 'refs/heads/main'
         with:
           branch: gh-pages
