@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cm5fktnx76hjo"]
+
+[ext_resource type="Script" uid="uid://cuc4q54pydkmv" path="res://scripts/mining_direction.gd" id="1_gomnu"]
+
+[node name="MiningDirection" type="RayCast2D"]
+script = ExtResource("1_gomnu")

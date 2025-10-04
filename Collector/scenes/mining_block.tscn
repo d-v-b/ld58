@@ -6,8 +6,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xy1sk"]
 size = Vector2(60, 60)
 
-[node name="MiningBlock" type="StaticBody2D"]
+[node name="MiningBlock" type="RigidBody2D"]
 input_pickable = true
+contact_monitor = true
+max_contacts_reported = 20
 script = ExtResource("1_hy1y5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -17,6 +19,14 @@ shape = SubResource("RectangleShape2D_xy1sk")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_46eo0")
 
+[node name="Overlay" type="Line2D" parent="."]
+visible = false
+points = PackedVector2Array(30, 31, -30, 31, -30, -29, 30, -29)
+closed = true
+width = 2.0
+default_color = Color(0.41960785, 0.8901961, 0.63529414, 1)
+
 [connection signal="destroy" from="." to="." method="_on_destroy"]
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mine" from="." to="." method="_on_mine"]
+[connection signal="select" from="." to="." method="_on_select"]

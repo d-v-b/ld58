@@ -17,6 +17,10 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("action_jump") and is_on_floor():
 		velocity.y = jump_velocity
+		
+	if Input.is_action_just_pressed("action_mine"):
+		if $MiningDirection.currently_selected_block:
+			$MiningDirection.currently_selected_block.mine.emit()
 	
 	handle_input()
 	move_and_slide()
