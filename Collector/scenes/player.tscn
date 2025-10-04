@@ -21,6 +21,21 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_dqkch"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_qhqgy"]
 resource_name = "player_death"
 length = 0.5
@@ -104,6 +119,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_y4r1p")
+}],
+"loop": true,
+"name": &"hard_turn",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_qlg0r")
 }],
 "loop": true,
@@ -111,9 +134,6 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qlg0r")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_d2wvv")
 }],
@@ -136,7 +156,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"run",
-"speed": 5.0
+"speed": 7.0
 }]
 
 [node name="Player" type="CharacterBody2D"]
@@ -176,6 +196,6 @@ z_index = 1
 position = Vector2(0, -8)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_3v2ag")
-animation = &"idle"
+animation = &"run"
 autoplay = "idle"
 script = ExtResource("5_qlg0r")

@@ -11,10 +11,13 @@ func _process(delta: float) -> void:
 
 	var new_anim = "idle" if player.direction == 0.0 else "run"
 	
+	if player.direction != 0 and sign(player.direction) != sign(player.velocity.x):
+		new_anim = "hard_turn"
+	
 	if !player.is_on_floor(): new_anim = "jump"
 
 	if animation != new_anim:
-		print(animation)
+		if (new_anim == "hard_turn"): _do_hard_turn(player.direction)
 		animation = new_anim
 		play()  # explicitly start playback (optional but safe)
 	
@@ -22,3 +25,16 @@ func _process(delta: float) -> void:
 		flip_h = true
 	elif player.direction == 1:
 		flip_h = false
+
+func _do_hard_turn(direction):
+	var turn_sprite = AnimatedSprite2D.new()
+	turn_sprite.sprite_frames = preload("res://assets/turn_frames.tres")
+	turn_sprite.position.x += -16 * direction
+	if direction < 0:
+		turn_sprite.flip_h = true
+	
+	get_tree().current_scene.add_child(turn_sprite)
+	turn_sprite.scale = Vector2(4.0, 4.0)
+	turn_sprite.global_position = global_position + Vector2((-85 * direction), 0.0)
+	turn_sprite.connect("animation_finished", Callable(turn_sprite, "queue_free"))
+	turn_sprite.play("turn")
