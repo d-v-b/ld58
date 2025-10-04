@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  GODOT_VERSION: 4.3
+  GODOT_VERSION: 4.5
   EXPORT_NAME: Collector
 
 jobs:
@@ -18,7 +18,7 @@ jobs:
       pages: write
       id-token: write
     container:
-      image: barichello/godot-ci:4.5
+      image: barichello/godot-ci:{{GODOT_VERSION}}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
