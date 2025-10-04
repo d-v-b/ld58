@@ -19,7 +19,6 @@ func _on_select(is_selected: bool) -> void:
 
 func reduce_health(value: int = 1):
 	health -= value
-	print("Mining block with health:", health)
 	if health <= 0:
 		destroy.emit()
 
