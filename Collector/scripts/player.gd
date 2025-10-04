@@ -4,7 +4,7 @@ class_name gamejam_player
 signal died
 @export var speed = 300.0
 @export var jump_velocity = -400.0
-
+var is_dead: bool = false
 var direction = 1
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -36,5 +36,3 @@ func die():
 	is_dead = true
 	died.emit()
 	%AnimationPlayer.play("player_death")
-	#handle_input()
-	move_and_slide()

@@ -4,11 +4,14 @@ extends Node2D
 @onready var player = $Player
 @onready var death_overlay = $DeathOverlay
 
-var player_dead: bool = false
 var score = 30
 
 func _ready():
-	player.died.connect(_on_player_died)
+	if player:
+		player.died.connect(_on_player_died)
+	else:
+		push_error("Player node not found!")
+
 	death_overlay.visible = false
 
 	# Connect button signals
