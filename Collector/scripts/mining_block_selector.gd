@@ -2,6 +2,8 @@ extends Node
 
 class_name MiningBlockSelector
 
+signal change_current
+
 var _current: MiningBlock
 var current: MiningBlock:
 	get:
@@ -14,3 +16,11 @@ var current: MiningBlock:
 		if block:
 			block.selected(true)
 		_current = block
+		change_current.emit()
+
+func _on_change_current() -> void:
+	if current:
+		$Overlay.global_position = current.position
+		$Overlay.visible = true
+	else:
+		$Overlay.visible = false

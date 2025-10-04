@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://chmfrm6bvpxm1" path="res://scripts/player.gd" id="1_t5m8q"]
 [ext_resource type="PackedScene" uid="uid://cm5fktnx76hjo" path="res://scenes/mining_direction.tscn" id="2_g2els"]
-[ext_resource type="PackedScene" path="res://scenes/mining_block_selector.tscn" id="3_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://26fueigt1juq" path="res://scenes/mining_block_selector.tscn" id="3_qhqgy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
 size = Vector2(48, 48)
@@ -29,3 +29,5 @@ shape = SubResource("RectangleShape2D_3vyb7")
 block_selector = NodePath("../MiningBlockSelector")
 
 [node name="MiningBlockSelector" parent="." instance=ExtResource("3_qhqgy")]
+top_level = true
+z_index = 1
