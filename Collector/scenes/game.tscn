@@ -1,8 +1,8 @@
-
-[gd_scene load_steps=7 format=3 uid="uid://tsmtvocl2gs3"]
+[gd_scene load_steps=8 format=3 uid="uid://tsmtvocl2gs3"]
 
 [ext_resource type="Script" uid="uid://b7k8d2qq5wept" path="res://scripts/game.gd" id="1_qbsmt"]
 [ext_resource type="PackedScene" uid="uid://cgohnh6jevo5g" path="res://scenes/player.tscn" id="2_cpr0p"]
+[ext_resource type="Script" uid="uid://jvqkm5cklhsy" path="res://scripts/world-renderer2.gd" id="2_iywne"]
 [ext_resource type="PackedScene" uid="uid://swkim5fvj60i" path="res://scenes/mining_block.tscn" id="2_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://bgh183yp2hi7y" path="res://scenes/hud.tscn" id="4_lbhrr"]
 
@@ -16,14 +16,17 @@ script = ExtResource("1_qbsmt")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.8, 0.8)
+position_smoothing_enabled = true
 
-[node name="TextureRect" type="TextureRect" parent="Camera2D"]
-z_index = 1
-offset_left = -561.0
-offset_top = -393.0
-offset_right = 531.0
-offset_bottom = 388.0
-script = ExtResource("2_lnu2h")
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_iywne")
 
 [node name="Arena" type="Node2D" parent="."]
 
@@ -127,6 +130,5 @@ color = Color(0.4, 0.2, 0.1, 1)
 position = Vector2(68, 447)
 
 [node name="Player" parent="." instance=ExtResource("2_cpr0p")]
-position = Vector2(0, 400)
 
 [node name="HUD" parent="." instance=ExtResource("4_lbhrr")]
