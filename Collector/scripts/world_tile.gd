@@ -21,12 +21,12 @@ func _ready() -> void:
 				_cell.value = _material
 				if rand_value2 == 10:
 					_cell.is_bomb = true
-				_cell.build()
-			
 			
 			_cell.position = Vector2i(x, y)
 			_cell.world_position = position_grid_to_world(_cell.position)
 			_cell.destroyed.connect(_on_cell_destroyed)
+			_cell.build()
+			
 			grid[y].append(_cell)
 
 	for y in range(-1, _size.y):
@@ -144,3 +144,19 @@ func choose_air_offset(x: int, y: int) -> Vector2i:
 	if bot_grass:
 		return Vector2i(-number, 0)
 	return Vector2i(0, 0)
+
+func count_adjacent_bombs(grid_position: Vector2i) -> int:
+	var directions = [
+		Vector2i(-1, -1), Vector2i(0, -1), Vector2i(1, -1),
+		Vector2i(-1,  0),                   Vector2i(1,  0),
+		Vector2i(-1,  1), Vector2i(0,  1), Vector2i(1,  1),
+	]
+	var count = 0
+	
+	for dir in directions:
+		var check = grid_position + dir
+		if check.y >= 0 and check.y < grid.size() and check.x >= 0 and check.x < grid[0].size():
+				var cell = grid[check.y][check.x]
+				if cell and cell.is_bomb:
+					count += 1
+	return count
