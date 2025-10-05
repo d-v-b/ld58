@@ -3,6 +3,7 @@ extends RefCounted
 class_name WorldCell
 
 signal destroyed(Vector2i)
+signal scored(score: int, world_pos: Vector2)
 
 var value = 0 # 1 = dirt, 2 = stone
 var is_bomb = false
@@ -11,6 +12,8 @@ var world_position: Vector2
 var mining_block: MiningBlock
 var world : World2D
 var tile_map : TileMapLayer
+var damage_overlay: ColorRect = null
+var glow_overlay: ColorRect = null
 
 var tile_highlight = load("res://scenes/mining_block_selector.tscn")
 
@@ -20,31 +23,80 @@ func _init(_world : World2D, _tile_map):
 
 func build() -> void:
 	if value == 0 or mining_block: return
-	
+
 	if is_bomb:
 		mining_block = MiningBlockFactory.create(MiningBlock.MiningBlockType.BOMB, world, world_position, position)
-		var mining_block_selector = tile_highlight.instantiate()
-		mining_block_selector.overlay_color = Color(1, 0, 0)
-		mining_block_selector.current = mining_block
-		tile_map.add_child(mining_block_selector)
+		# Bomb highlight disabled for gameplay
+		# var mining_block_selector = tile_highlight.instantiate()
+		# mining_block_selector.overlay_color = Color(1, 0, 0)
+		# mining_block_selector.current = mining_block
+		# tile_map.add_child(mining_block_selector)
 	else:
 		mining_block = MiningBlockFactory.create(MiningBlock.MiningBlockType.STANDARD, world, world_position, position)
-	
-	mining_block.destroy.connect(_on_destroy)
 
-func destroy() -> void:	
+	mining_block.destroy.connect(_on_destroy)
+	mining_block.damaged.connect(_on_damaged)
+
+func destroy() -> void:
 	if value == 0 or not mining_block: return
-	
+
+	# Calculate score based on nearby bombs
+	var nearby_bombs = tile_map.count_adjacent_bombs(position)
+	var score = nearby_bombs
+
+	# Emit score for popup
+	if score > 0:
+		scored.emit(score, world_position)
+
 	for i in 32:
 		var color = Color(0.404, 0.275, 0.239) if value == 1 else Color(0.392, 0.408, 0.427, 1.0)
 		var particle = destruction_particle.new(color)
 		particle.global_position = world_position + Vector2(randi_range(-32, 32), randi_range(-32, 32))
 		tile_map.add_child(particle)
-		
+
+	# Clean up overlays
+	if damage_overlay:
+		damage_overlay.queue_free()
+		damage_overlay = null
+	if glow_overlay:
+		glow_overlay.queue_free()
+		glow_overlay = null
+
 	value = 0
 	mining_block.destroy.disconnect(_on_destroy)
+	mining_block.damaged.disconnect(_on_damaged)
 	mining_block = null
 	destroyed.emit(position)
 
 func _on_destroy() -> void:
 	destroy()
+
+func _on_damaged(current_health: int, max_health: int) -> void:
+	# Calculate damage percentage (0.0 = full health, 1.0 = almost destroyed)
+	var damage_percentage = 1.0 - (float(current_health) / float(max_health))
+
+	# Create or update damage overlay
+	if damage_overlay == null:
+		damage_overlay = ColorRect.new()
+		damage_overlay.size = Vector2(64, 64)
+		damage_overlay.position = world_position - Vector2(32, 32)
+		damage_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		tile_map.add_child(damage_overlay)
+
+	# Darken the tile based on damage (more damage = darker)
+	var darkness = damage_percentage * 0.6  # Max 60% darkness
+	damage_overlay.color = Color(0, 0, 0, darkness)
+
+func set_glow(should_glow: bool) -> void:
+	if should_glow:
+		if glow_overlay == null:
+			glow_overlay = ColorRect.new()
+			glow_overlay.size = Vector2(64, 64)
+			glow_overlay.position = world_position - Vector2(32, 32)
+			glow_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			glow_overlay.color = Color(1, 0.3, 0, 0.3)  # Orange glow
+			tile_map.add_child(glow_overlay)
+	else:
+		if glow_overlay:
+			glow_overlay.queue_free()
+			glow_overlay = null

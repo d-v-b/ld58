@@ -11,6 +11,7 @@ signal mine_signal
 @export var friction := 800.0
 @export var wall_friction := 400.0
 @export var wall_jumps : int = 1
+@export var wall_climb_speed := 200.0
 
 var wall_jumps_since_floor = 0
 
@@ -26,17 +27,22 @@ signal change_direction
 func _physics_process(delta):
 	if is_on_floor(): wall_jumps_since_floor = 0
 	
-	var grid_pos = get_node("/root/Main/TileMapLayer").position_world_to_grid(global_position)
-	var bombs_nearby = get_node("/root/Main/TileMapLayer").count_adjacent_bombs(grid_pos)
+	var tile_map = get_node("/root/Main/TileMapLayer")
+	var grid_pos = tile_map.position_world_to_grid(global_position)
+	var bombs_nearby = tile_map.count_adjacent_bombs(grid_pos)
 	#print("Bombs near player: ", bombs_nearby)
-	
+
 	bomb_label.update_count(bombs_nearby)
 	bomb_label.text = str(bombs_nearby)
 	
 	if not is_dead:
 		if not is_on_floor():
 			if is_on_wall():
-				velocity.y += (gravity - wall_friction) * delta 
+				# Wall climbing: if holding jump, climb up
+				if Input.is_action_pressed("action_jump"):
+					velocity.y = -wall_climb_speed
+				else:
+					velocity.y += (gravity - wall_friction) * delta
 			else:
 				velocity.y += gravity * delta
 		

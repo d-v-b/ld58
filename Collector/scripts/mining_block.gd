@@ -11,8 +11,10 @@ enum MiningBlockType{
 
 signal mine
 signal destroy
+signal damaged(current_health: int, max_health: int)
 
 var health: int = 5
+var max_health: int = 5
 var position: Vector2
 var tile_position : Vector2i
 var world : World2D
@@ -34,3 +36,5 @@ func reduce_health(value: int = 1):
 	health -= value
 	if health <= 0:
 		destroy.emit()
+	else:
+		damaged.emit(health, max_health)
