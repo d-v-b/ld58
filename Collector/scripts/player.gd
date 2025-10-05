@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name gamejam_player
 
 signal died
+signal jumped
 signal mine_signal
 
 @export var speed = 300.0
@@ -39,10 +40,24 @@ func _physics_process(delta):
 			else:
 				velocity.y += gravity * delta
 		
+		if direction == 0:
+			velocity.x = move_toward(velocity.x, 0, friction * delta)
+
+		if Input.is_action_just_pressed("action_jump") and (is_on_floor() or is_on_wall()):
+			if not is_on_floor() and wall_jumps_since_floor < wall_jumps:
+				wall_jumps_since_floor += 1
+				velocity.y = jump_velocity * 0.65
+				velocity += get_wall_normal() * jump_velocity * -0.35
+				jumped.emit()
+			elif is_on_floor():
+				velocity.y = jump_velocity
+				jumped.emit()
+
 		if Input.is_action_just_pressed("action_mine"):
 			mine()
 			if $MiningBlockSelector.current:
 				$MiningBlockSelector.current.mine.emit()
+				$CrunchSound.play_random_crunch()
 		
 		else:
 			movement_input(delta)
