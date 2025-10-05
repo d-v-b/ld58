@@ -1,12 +1,13 @@
-[gd_scene load_steps=40 format=3 uid="uid://dsfm3h2mxl1hh"]
+[gd_scene load_steps=41 format=3 uid="uid://dsfm3h2mxl1hh"]
 
 [ext_resource type="Script" uid="uid://b7k8d2qq5wept" path="res://scripts/game.gd" id="1_qbsmt"]
 [ext_resource type="Texture2D" uid="uid://dxsqek77lhtb8" path="res://assets/texture_atlas_2.png" id="2_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://cgohnh6jevo5g" path="res://scenes/player.tscn" id="2_cpr0p"]
 [ext_resource type="Script" uid="uid://upb4cf8v7m5a" path="res://scripts/world_tile.gd" id="3_vtaks"]
 [ext_resource type="PackedScene" uid="uid://bgh183yp2hi7y" path="res://scenes/hud.tscn" id="4_lbhrr"]
-[ext_resource type="Script" path="res://scripts/bomb_count_label.gd" id="5_0tnpc"]
-[ext_resource type="Script" path="res://scripts/camera_2d.gd" id="5_gee14"]
+[ext_resource type="Script" uid="uid://c8d5eey6t21gm" path="res://scripts/bomb_count_label.gd" id="5_0tnpc"]
+[ext_resource type="Script" uid="uid://1cvln46xw26y" path="res://scripts/camera_2d.gd" id="5_gee14"]
+[ext_resource type="FontFile" uid="uid://dakrty3k5eh2s" path="res://assets/PixelOperator8.ttf" id="10_vtaks"]
 [ext_resource type="Texture2D" uid="uid://gbir15ew0fxx" path="res://assets/underground_background.png" id="12_dinhu"]
 [ext_resource type="PackedScene" uid="uid://d2oyp2jbjhicj" path="res://scenes/parallax_background.tscn" id="13_kvuet"]
 
@@ -249,6 +250,7 @@ script = ExtResource("5_gee14")
 offset_top = -126.0
 offset_right = 35.0
 offset_bottom = -16.0
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 32
 text = "5"
 script = ExtResource("5_0tnpc")
@@ -340,3 +342,13 @@ shape = SubResource("WorldBoundaryShape2D_u5sy4")
 
 [node name="Bottom" type="CollisionShape2D" parent="WorldBoundaries"]
 shape = SubResource("WorldBoundaryShape2D_vtaks")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 111.0
+offset_top = -138.0
+offset_right = 463.0
+offset_bottom = -93.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("10_vtaks")
+theme_override_font_sizes/font_size = 16
+text = "Bombs nearby:"

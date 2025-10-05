@@ -1,6 +1,5 @@
 extends Label
 
-
 func update_count(bombs_nearby: int) -> void:
 	text = str(bombs_nearby)
 	
