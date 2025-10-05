@@ -1,8 +1,8 @@
-[gd_scene load_steps=29 format=3 uid="uid://br7rnmtlq1t2g"]
+[gd_scene load_steps=29 format=3 uid="uid://bvyi1ura2uunb"]
 
-[ext_resource type="Script" path="res://scripts/diamond.gd" id="1_bd64o"]
-[ext_resource type="Texture2D" path="res://assets/Collected.png" id="2_up2nb"]
-[ext_resource type="Texture2D" path="res://assets/Apple.png" id="3_p5v7i"]
+[ext_resource type="Script" uid="uid://bwc6f5an0nw3i" path="res://scripts/diamond.gd" id="1_bd64o"]
+[ext_resource type="Texture2D" uid="uid://djt61vjq7kux3" path="res://assets/Collected.png" id="2_up2nb"]
+[ext_resource type="Texture2D" uid="uid://cse7pqi1w5qqq" path="res://assets/Apple.png" id="3_p5v7i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0fuo3"]
 atlas = ExtResource("2_up2nb")
