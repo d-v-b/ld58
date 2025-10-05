@@ -2,6 +2,8 @@ extends CharacterBody2D
 class_name gamejam_player
 
 signal died
+signal jumped
+
 @export var speed = 300.0
 @export var jump_velocity = -400.0
 @export var acceleration = 800.0
@@ -42,8 +44,10 @@ func _physics_process(delta):
 				wall_jumps_since_floor += 1
 				velocity.y = jump_velocity * 0.65
 				velocity += get_wall_normal() * jump_velocity * -0.35
+				jumped.emit()
 			elif is_on_floor():
 				velocity.y = jump_velocity
+				jumped.emit()
 
 		if Input.is_action_just_pressed("action_mine"):
 			if $MiningBlockSelector.current:
