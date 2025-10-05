@@ -10,8 +10,10 @@ var position: Vector2i
 var world_position: Vector2
 var mining_block: MiningBlock
 var world : World2D
+var tile_map : TileMapLayer
 
-func _init(_world : World2D):
+func _init(_world : World2D, _tile_map):
+	tile_map = _tile_map
 	world = _world
 
 func build() -> void:
@@ -24,8 +26,15 @@ func build() -> void:
 	
 	mining_block.destroy.connect(_on_destroy)
 
-func destroy() -> void:
+func destroy() -> void:	
 	if value == 0 or not mining_block: return
+	
+	for i in 32:
+		var color = Color(0.404, 0.275, 0.239) if value == 1 else Color(0.392, 0.408, 0.427, 1.0)
+		var particle = destruction_particle.new(color)
+		particle.global_position = world_position + Vector2(randi_range(-32, 32), randi_range(-32, 32))
+		tile_map.add_child(particle)
+		
 	value = 0
 	mining_block.destroy.disconnect(_on_destroy)
 	mining_block = null
