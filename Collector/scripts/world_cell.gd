@@ -35,6 +35,7 @@ func build() -> void:
 		mining_block_selector.overlay_color = Color(1, 0, 0)
 		mining_block_selector.current = mining_block
 		tile_map.add_child(mining_block_selector)
+		mining_block_selector.get_child(0).visible = false
 	else:
 		mining_block = MiningBlockFactory.create(MiningBlock.MiningBlockType.STANDARD, world, world_position, position)
 	

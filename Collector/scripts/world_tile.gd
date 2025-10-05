@@ -9,6 +9,13 @@ const DENSITY_DIAMOND = 0.012
 
 var grid: Array[Array]
 
+var cheat_mode: bool = false
+func toggle_cheat_mode():
+	cheat_mode = !cheat_mode
+	for node in get_children():
+		if node is not MiningBlockSelector: continue
+		node.get_child(0).visible = cheat_mode
+
 func _ready() -> void:
 	for y in _size.y:
 		grid.append([])

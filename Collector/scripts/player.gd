@@ -64,6 +64,9 @@ func _physics_process(delta):
 
 		if Input.is_action_just_pressed("action_die"):
 			die()
+			
+		if Input.is_action_just_pressed("test_cheat"):
+			get_node("/root/Main/TileMapLayer").toggle_cheat_mode()
 
 		move_and_slide()
 		
