@@ -7,4 +7,6 @@ static func create(type: MiningBlock.MiningBlockType, world : World2D, world_pos
 		return MiningBlockStandard.new(world, world_position, tile_position)
 	if type == MiningBlock.MiningBlockType.BOMB:
 		return MiningBlockBomb.new(world, world_position, tile_position)
+	if type == MiningBlock.MiningBlockType.INDESTRUCTIBLE:
+		return MiningBlockIndestructible.new(world, world_position, tile_position)
 	return MiningBlock.new(world, world_position, tile_position)
