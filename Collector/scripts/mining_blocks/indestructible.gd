@@ -1,5 +1,5 @@
 class_name MiningBlockIndestructible extends MiningBlock
 
-func _init(world_position: Vector2) -> void:
-	super._init(world_position)
+func _init(_world : World2D, world_position: Vector2, _tile_position: Vector2i) -> void:
+	super._init(_world, world_position, _tile_position)
 	health = 1000
