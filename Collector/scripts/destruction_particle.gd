@@ -20,5 +20,5 @@ func _process(delta: float) -> void:
 	velocity.x *= pow(drag, delta * 60.0)
 	opaqueness -= 2.5 * delta
 	color.a = opaqueness
-	if opaqueness == 0:
+	if opaqueness <= 0:
 		queue_free()
