@@ -1,12 +1,12 @@
-[gd_scene load_steps=22 format=3 uid="uid://cgohnh6jevo5g"]
+[gd_scene load_steps=26 format=3 uid="uid://cgohnh6jevo5g"]
 
 [ext_resource type="Script" uid="uid://chmfrm6bvpxm1" path="res://scripts/player.gd" id="1_t5m8q"]
 [ext_resource type="PackedScene" uid="uid://cm5fktnx76hjo" path="res://scenes/mining_direction.tscn" id="2_g2els"]
 [ext_resource type="PackedScene" uid="uid://26fueigt1juq" path="res://scenes/mining_block_selector.tscn" id="3_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://d3ugus8k8pc57" path="res://assets/char_mine.png" id="4_dqkch"]
 [ext_resource type="Script" uid="uid://dxa2oseq1vhx4" path="res://scenes/player_animations.gd" id="5_qlg0r"]
-[ext_resource type="Script" path="res://scripts/jump_sound_player.gd" id="6_jump"]
 [ext_resource type="Texture2D" uid="uid://con5bojp1em5d" path="res://assets/char_mining_anim.png" id="5_tuyoq"]
+[ext_resource type="Script" path="res://scripts/jump_sound_player.gd" id="6_jump"]
 [ext_resource type="Script" path="res://scripts/swipe_sound_player.gd" id="7_swipe"]
 [ext_resource type="Script" path="res://scripts/crunch_sound_player.gd" id="8_crunch"]
 [ext_resource type="Script" path="res://scripts/death_sound_player.gd" id="9_death"]
@@ -244,6 +244,6 @@ script = ExtResource("8_crunch")
 volume_db = -5.0
 script = ExtResource("9_death")
 
+[connection signal="died" from="." to="DeathSound" method="play_random_death"]
 [connection signal="jumped" from="." to="JumpSound" method="play_random_jump"]
 [connection signal="mine_signal" from="." to="SwipeSound" method="play_random_swipe"]
-[connection signal="died" from="." to="DeathSound" method="play_random_death"]
