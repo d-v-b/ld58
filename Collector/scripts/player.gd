@@ -59,3 +59,5 @@ func die():
 	died.emit()
 	%AnimationPlayer.play("player_death")
 	
+func on_hit():
+	die()

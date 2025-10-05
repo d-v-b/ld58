@@ -23,4 +23,3 @@ default_color = Color(0.41960785, 0.8901961, 0.63529414, 1)
 [connection signal="destroy" from="." to="." method="_on_destroy"]
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mine" from="." to="." method="_on_mine"]
-[connection signal="select" from="." to="." method="_on_select"]
