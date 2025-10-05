@@ -4,6 +4,7 @@
 
 [node name="MiningBlockSelector" type="Node2D"]
 script = ExtResource("1_m8c80")
+overlay_color = Color(0.8111119, 0.43165767, 0.519427, 1)
 
 [node name="Overlay" type="CanvasGroup" parent="."]
 physics_interpolation_mode = 2
@@ -11,13 +12,13 @@ auto_translate_mode = 2
 visible = false
 
 [node name="Fill" type="Polygon2D" parent="Overlay"]
-color = Color(0.7882353, 0.6745098, 0.019607844, 0.57254905)
+color = Color(0.7977378, 0.6651851, 0, 0.4)
 polygon = PackedVector2Array(32, 32, 32, -32, -32, -32, -32, 32)
 
 [node name="Border" type="Line2D" parent="Overlay"]
 points = PackedVector2Array(32, -32, 32, 32, -32, 32, -32, -32)
 closed = true
 width = 4.0
-default_color = Color(0.7882353, 0.6745098, 0.019607844, 1)
+default_color = Color(0.79607844, 0.6666667, 0, 0.8)
 
 [connection signal="change_current" from="." to="." method="_on_change_current"]

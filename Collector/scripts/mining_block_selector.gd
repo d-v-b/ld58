@@ -4,6 +4,10 @@ class_name MiningBlockSelector
 
 signal change_current
 
+@export var overlay_color: Color
+@export var overlay_fill_alpha: float = 0.4
+@export var overlay_border_alpha: float = 0.8
+
 var current: MiningBlock:
 	get:
 		return current
@@ -24,3 +28,7 @@ func _on_change_current() -> void:
 		$Overlay.visible = true
 	else:
 		$Overlay.visible = false
+
+func _ready() -> void:
+	$Overlay/Fill.color = Color(overlay_color, overlay_fill_alpha)
+	$Overlay/Border.default_color = Color(overlay_color, overlay_border_alpha)

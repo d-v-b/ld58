@@ -12,6 +12,8 @@ var mining_block: MiningBlock
 var world : World2D
 var tile_map : TileMapLayer
 
+var tile_highlight = load("res://scenes/mining_block_selector.tscn")
+
 func _init(_world : World2D, _tile_map):
 	tile_map = _tile_map
 	world = _world
@@ -21,6 +23,10 @@ func build() -> void:
 	
 	if is_bomb:
 		mining_block = MiningBlockFactory.create(MiningBlock.MiningBlockType.BOMB, world, world_position, position)
+		var mining_block_selector = tile_highlight.instantiate()
+		mining_block_selector.overlay_color = Color(1, 0, 0)
+		mining_block_selector.current = mining_block
+		tile_map.add_child(mining_block_selector)
 	else:
 		mining_block = MiningBlockFactory.create(MiningBlock.MiningBlockType.STANDARD, world, world_position, position)
 	
