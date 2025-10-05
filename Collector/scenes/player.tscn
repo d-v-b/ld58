@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cgohnh6jevo5g"]
+[gd_scene load_steps=28 format=3 uid="uid://cgohnh6jevo5g"]
 
 [ext_resource type="Script" uid="uid://chmfrm6bvpxm1" path="res://scripts/player.gd" id="1_t5m8q"]
 [ext_resource type="PackedScene" uid="uid://cm5fktnx76hjo" path="res://scenes/mining_direction.tscn" id="2_g2els"]
@@ -6,10 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://d3ugus8k8pc57" path="res://assets/char_mine.png" id="4_dqkch"]
 [ext_resource type="Script" uid="uid://dxa2oseq1vhx4" path="res://scenes/player_animations.gd" id="5_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://con5bojp1em5d" path="res://assets/char_mining_anim.png" id="5_tuyoq"]
-[ext_resource type="Script" uid="uid://cvri3rrpcsanm" path="res://scripts/jump_sound_player.gd" id="6_jump"]
-[ext_resource type="Script" uid="uid://hw28s5dn4y2u" path="res://scripts/swipe_sound_player.gd" id="7_swipe"]
-[ext_resource type="Script" uid="uid://byka4drwdgxw6" path="res://scripts/crunch_sound_player.gd" id="8_crunch"]
-[ext_resource type="Script" uid="uid://cff4ewsee301l" path="res://scripts/death_sound_player.gd" id="9_death"]
+[ext_resource type="Script" path="res://scripts/jump_sound_player.gd" id="6_jump"]
+[ext_resource type="Script" path="res://scripts/swipe_sound_player.gd" id="7_swipe"]
+[ext_resource type="Script" path="res://scripts/crunch_sound_player.gd" id="8_crunch"]
+[ext_resource type="Script" path="res://scripts/death_sound_player.gd" id="9_death"]
 
 [sub_resource type="Animation" id="Animation_dqkch"]
 length = 0.001
@@ -88,6 +88,14 @@ region = Rect2(32, 0, 32, 32)
 atlas = ExtResource("4_dqkch")
 region = Rect2(112, 0, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_oprun"]
+atlas = ExtResource("4_dqkch")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8ls1"]
+atlas = ExtResource("4_dqkch")
+region = Rect2(144, 0, 16, 16)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_3v2ag"]
 animations = [{
 "frames": [{
@@ -120,9 +128,26 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_f1ej7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oprun")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8ls1")
 }],
 "loop": true,
 "name": &"all",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oprun")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8ls1")
+}],
+"loop": true,
+"name": &"climb",
 "speed": 5.0
 }, {
 "frames": [{
@@ -219,7 +244,7 @@ z_index = 1
 position = Vector2(0, -8)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_3v2ag")
-animation = &"idle"
+animation = &"climb"
 autoplay = "idle"
 script = ExtResource("5_qlg0r")
 

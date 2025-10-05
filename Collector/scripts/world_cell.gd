@@ -11,7 +11,7 @@ var position: Vector2i
 var world_position: Vector2
 var mining_block: MiningBlock
 var world : World2D
-var tile_map : TileMapLayer
+var tile_map : WorldTile
 var damage_overlay: ColorRect = null
 var glow_overlay: ColorRect = null
 
@@ -50,7 +50,7 @@ func destroy() -> void:
 
 	# Calculate score based on nearby bombs
 	var nearby_bombs = tile_map.count_adjacent_bombs(position)
-	var score = nearby_bombs
+	var score = nearby_bombs * 10
 
 	# Emit score for popup
 	if score > 0:
@@ -61,6 +61,17 @@ func destroy() -> void:
 		var particle = destruction_particle.new(color)
 		particle.global_position = world_position + Vector2(randi_range(-32, 32), randi_range(-32, 32))
 		tile_map.add_child(particle)
+	
+
+	var hud = tile_map.get_node("../HUD")
+	var end_pos = tile_map.get_viewport_rect().size * 0.9
+	print(tile_map.get_canvas_transform().origin + world_position)
+	
+	for i in score:
+		var color = Color(0.824, 0.658, 0.385, 1.0)
+		var particle = gold_particle.new(color, tile_map.get_canvas_transform().origin + world_position, end_pos)
+		particle.global_position = world_position + Vector2(randi_range(-16, 16), randi_range(-16, 16))
+		hud.add_child(particle)
 
 	# Clean up overlays
 	if damage_overlay:
