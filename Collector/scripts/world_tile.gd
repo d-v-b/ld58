@@ -21,6 +21,7 @@ func _ready() -> void:
 			
 			_cell.position = Vector2i(x, y)
 			_cell.world_position = position_grid_to_world(_cell.position)
+			_cell.destroyed.connect(_on_cell_destroyed)
 			grid[y].append(_cell)
 
 	for y in range(-1, _size.y):
@@ -33,6 +34,14 @@ func _ready() -> void:
 				set_cell(Vector2i(x, y), 1, Vector2i(5, 2)  + choose_tile_offset(x, y))
 			else:
 				set_cell(Vector2i(x, y), 1, Vector2i(4, 0)  + choose_air_offset(x, y))
+
+func _on_cell_destroyed(grid_position: Vector2i) -> void:
+	var cell = grid[grid_position.y][grid_position.x]
+	destroy_cell(cell)
+	
+func destroy_cell(cell: WorldCell) -> void:
+	set_cell(cell.position, -1)
+	cell.destroyed.disconnect(_on_cell_destroyed)
 
 func position_grid_to_world(grid_position: Vector2i) -> Vector2:
 	var world_position := Vector2(grid_position * tile_set.tile_size + tile_set.tile_size / 2)

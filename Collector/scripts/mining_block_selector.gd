@@ -4,19 +4,19 @@ class_name MiningBlockSelector
 
 signal change_current
 
-var _current: MiningBlock
 var current: MiningBlock:
 	get:
-		return _current
+		return current
 	set(block):
-		if block == _current:
+		if block == current:
 			return
-		if _current:
-			_current.selected(false)
-		if block:
-			block.selected(true)
-		_current = block
+		if current: current.destroy.disconnect(_on_destroy_current)
+		current = block
+		if current: current.destroy.connect(_on_destroy_current)
 		change_current.emit()
+
+func _on_destroy_current() -> void:
+	current = null
 
 func _on_change_current() -> void:
 	if current:
