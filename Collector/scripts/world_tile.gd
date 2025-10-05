@@ -2,7 +2,7 @@ extends TileMapLayer
 
 class_name WorldTile
 
-const _size = Vector2i(64, 64)
+const _size = Vector2i(22, 64)
 
 var grid: Array[Array]
 
