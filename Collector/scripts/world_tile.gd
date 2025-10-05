@@ -21,13 +21,12 @@ func _ready() -> void:
 				_cell.value = _material
 				if rand_value2 == 10:
 					_cell.is_bomb = true
-				_cell.build()
-			
-			
 			
 			_cell.position = Vector2i(x, y)
 			_cell.world_position = position_grid_to_world(_cell.position)
 			_cell.destroyed.connect(_on_cell_destroyed)
+			_cell.build()
+			
 			grid[y].append(_cell)
 
 	for y in range(-1, _size.y):
