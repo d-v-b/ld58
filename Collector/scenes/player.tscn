@@ -6,10 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://d3ugus8k8pc57" path="res://assets/char_mine.png" id="4_dqkch"]
 [ext_resource type="Script" uid="uid://dxa2oseq1vhx4" path="res://scenes/player_animations.gd" id="5_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://con5bojp1em5d" path="res://assets/char_mining_anim.png" id="5_tuyoq"]
-[ext_resource type="Script" path="res://scripts/jump_sound_player.gd" id="6_jump"]
-[ext_resource type="Script" path="res://scripts/swipe_sound_player.gd" id="7_swipe"]
-[ext_resource type="Script" path="res://scripts/crunch_sound_player.gd" id="8_crunch"]
-[ext_resource type="Script" path="res://scripts/death_sound_player.gd" id="9_death"]
+[ext_resource type="Script" uid="uid://cvri3rrpcsanm" path="res://scripts/jump_sound_player.gd" id="6_jump"]
+[ext_resource type="Script" uid="uid://hw28s5dn4y2u" path="res://scripts/swipe_sound_player.gd" id="7_swipe"]
+[ext_resource type="Script" uid="uid://byka4drwdgxw6" path="res://scripts/crunch_sound_player.gd" id="8_crunch"]
+[ext_resource type="Script" uid="uid://cff4ewsee301l" path="res://scripts/death_sound_player.gd" id="9_death"]
 
 [sub_resource type="Animation" id="Animation_dqkch"]
 length = 0.001
@@ -209,7 +209,6 @@ width = 4.0
 default_color = Color(0.10200001, 0.3011999, 0.6, 0)
 
 [node name="MiningDirection" parent="." node_paths=PackedStringArray("block_selector") instance=ExtResource("2_g2els")]
-collision_mask = 4
 block_selector = NodePath("../MiningBlockSelector")
 
 [node name="MiningBlockSelector" parent="." instance=ExtResource("3_qhqgy")]

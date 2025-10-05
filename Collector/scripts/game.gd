@@ -23,6 +23,12 @@ func _ready():
 
 func _on_player_died():
 	print('the player died')
+
+	# Reveal all bombs
+	var tile_map = $TileMapLayer
+	if tile_map and tile_map.has_method("reveal_all_bombs"):
+		tile_map.reveal_all_bombs()
+
 	show_death_screen()
 
 func show_death_screen():
