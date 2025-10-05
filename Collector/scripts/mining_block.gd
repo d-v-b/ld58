@@ -5,6 +5,7 @@ class_name MiningBlock
 enum MiningBlockType{
 	NONE,
 	STANDARD,
+	BOMB,
 	INDESTRUCTIBLE = 100,
 }
 
@@ -13,8 +14,12 @@ signal destroy
 
 var health: int = 5
 var position: Vector2
+var tile_position : Vector2i
+var world : World2D
 
-func _init(world_position: Vector2) -> void:
+func _init(_world, world_position: Vector2, _tile_position : Vector2i) -> void:
+	world = _world
+	tile_position = _tile_position
 	position = world_position
 	mine.connect(_on_mine)
 	destroy.connect(_on_destroy)
