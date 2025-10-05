@@ -40,8 +40,26 @@ func _on_cell_destroyed(grid_position: Vector2i) -> void:
 	destroy_cell(cell)
 	
 func destroy_cell(cell: WorldCell) -> void:
-	set_cell(cell.position, -1)
+	set_cell(cell.position, 1, Vector2i(4, 0)  + choose_air_offset(cell.position.x, cell.position.y))
+	update_neighbours(cell)
 	cell.destroyed.disconnect(_on_cell_destroyed)
+	
+func update_neighbours(cell: WorldCell) -> void:
+	var x = cell.position.x
+	var y = cell.position.y
+	update_cell(grid[y-1][x])
+	update_cell(grid[y+1][x])
+	update_cell(grid[y][x-1])
+	update_cell(grid[y][x+1])
+	
+	
+func update_cell(cell: WorldCell) -> void:
+	if cell.value == 0:
+		set_cell(cell.position, 1, Vector2i(4, 0)  + choose_air_offset(cell.position.x, cell.position.y))
+	elif cell.value == 1:
+		set_cell(cell.position, 1, Vector2i(1, 2)  + choose_tile_offset(cell.position.x, cell.position.y))
+	elif cell.value == 2:
+		set_cell(cell.position, 1, Vector2i(5, 2)  + choose_tile_offset(cell.position.x, cell.position.y))
 
 func position_grid_to_world(grid_position: Vector2i) -> Vector2:
 	var world_position := Vector2(grid_position * tile_set.tile_size + tile_set.tile_size / 2)
@@ -67,6 +85,23 @@ func choose_tile_offset(x: int, y: int) -> Vector2i:
 	var bot_free = y < max_y and grid[y + 1][x].value == 0
 	var lft_free = x > 0 and grid[y][x - 1].value == 0
 	var rgt_free = x < max_x and grid[y][x + 1].value == 0
+	
+	if top_free && bot_free:
+		if lft_free:
+			if rgt_free:
+				return Vector2i(0, 3)
+			return Vector2i(-1, 2)
+		if rgt_free:
+			return Vector2i(1, 2)
+		return Vector2i(0, 2)
+		
+	if lft_free && rgt_free:
+		if top_free:
+			return Vector2i(-1, 3)
+		if bot_free:
+			return Vector2i(1, 3)
+		return Vector2i(1, 4)
+		
 
 	if top_free:
 		if lft_free:
@@ -90,7 +125,10 @@ func choose_air_offset(x: int, y: int) -> Vector2i:
 	var max_y := grid.size() - 1
 	var bot_grass = y < max_y and grid[y + 1][x].value == 1
 
-	if (bot_grass):
-		return Vector2i(-randi() % 5, 0)
-	
+	# Deterministic pseudo-random number based on x and y
+	var seed := int((x * 73856093) ^ (y * 19349663)) & 0x7fffffff
+	var number := seed % 5  # gives values 0–4, consistent per (x, y)
+
+	if bot_grass:
+		return Vector2i(-number, 0)
 	return Vector2i(0, 0)
