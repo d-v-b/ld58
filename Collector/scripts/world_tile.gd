@@ -186,8 +186,32 @@ func count_adjacent_bombs(grid_position: Vector2i) -> int:
 		var check = grid_position + dir
 		if check.y >= 0 and check.y < grid.size() and check.x >= 0 and check.x < grid[0].size():
 				var cell = grid[check.y][check.x]
-				if cell and cell.is_bomb:
+				if cell and cell.is_bomb and cell.value != 0:
 					count += 1
+	return count
+
+func count_bombs_in_range(world_position: Vector2, max_distance: float) -> int:
+	var count = 0
+	var grid_pos = position_world_to_grid(world_position)
+
+	# Check a radius of cells (convert distance to grid cells)
+	var cell_radius = int(ceil(max_distance / tile_set.tile_size.x)) + 1
+
+	for dy in range(-cell_radius, cell_radius + 1):
+		for dx in range(-cell_radius, cell_radius + 1):
+			var check_pos = grid_pos + Vector2i(dx, dy)
+
+			# Skip if out of bounds
+			if check_pos.y < 0 or check_pos.y >= grid.size() or check_pos.x < 0 or check_pos.x >= grid[0].size():
+				continue
+
+			var cell = grid[check_pos.y][check_pos.x]
+			if cell and cell.is_bomb and cell.value != 0:
+				# Check actual distance
+				var distance = world_position.distance_to(cell.world_position)
+				if distance <= max_distance:
+					count += 1
+
 	return count
 
 func is_bomb_isolated(cell: WorldCell) -> bool:

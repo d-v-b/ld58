@@ -28,8 +28,7 @@ func _physics_process(delta):
 	if is_on_floor(): wall_jumps_since_floor = 0
 	
 	var tile_map = get_node("/root/Main/TileMapLayer")
-	var grid_pos = tile_map.position_world_to_grid(global_position)
-	var bombs_nearby = tile_map.count_adjacent_bombs(grid_pos)
+	var bombs_nearby = tile_map.count_bombs_in_range(global_position, 100.0)  # Match mining range
 	#print("Bombs near player: ", bombs_nearby)
 
 	bomb_label.update_count(bombs_nearby)

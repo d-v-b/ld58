@@ -209,7 +209,6 @@ width = 4.0
 default_color = Color(0.10200001, 0.3011999, 0.6, 0)
 
 [node name="MiningDirection" parent="." node_paths=PackedStringArray("block_selector") instance=ExtResource("2_g2els")]
-collision_mask = 4
 block_selector = NodePath("../MiningBlockSelector")
 
 [node name="MiningBlockSelector" parent="." instance=ExtResource("3_qhqgy")]
