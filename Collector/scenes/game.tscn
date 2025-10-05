@@ -1,12 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://dsfm3h2mxl1hh"]
+[gd_scene load_steps=14 format=3 uid="uid://dsfm3h2mxl1hh"]
 
 [ext_resource type="Script" uid="uid://b7k8d2qq5wept" path="res://scripts/game.gd" id="1_qbsmt"]
 [ext_resource type="Texture2D" uid="uid://dxsqek77lhtb8" path="res://assets/texture_atlas_2.png" id="2_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://cgohnh6jevo5g" path="res://scenes/player.tscn" id="2_cpr0p"]
 [ext_resource type="Script" uid="uid://upb4cf8v7m5a" path="res://scripts/world_tile.gd" id="3_vtaks"]
 [ext_resource type="PackedScene" uid="uid://bgh183yp2hi7y" path="res://scenes/hud.tscn" id="4_lbhrr"]
-[ext_resource type="PackedScene" uid="uid://d3j3w4gbfqk0a" path="res://scenes/diamond.tscn" id="9_0tnpc"]
-[ext_resource type="Texture2D" uid="uid://bxlqn601e7qbm" path="res://assets/TopBackground.png" id="11_kvpfn"]
 [ext_resource type="Texture2D" uid="uid://gbir15ew0fxx" path="res://assets/underground_background.png" id="12_dinhu"]
 [ext_resource type="PackedScene" uid="uid://d2oyp2jbjhicj" path="res://scenes/parallax_background.tscn" id="13_kvuet"]
 
@@ -103,6 +101,20 @@ physics_layer_0/collision_layer = 4
 physics_layer_0/collision_mask = 135
 sources/1 = SubResource("TileSetAtlasSource_vtaks")
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gee14"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0tnpc"]
+normal = Vector2(-1, 0)
+distance = -1408.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_u5sy4"]
+normal = Vector2(0, 1)
+distance = -640.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_vtaks"]
+distance = -4096.0
+
 [node name="Main" type="Node2D"]
 script = ExtResource("1_qbsmt")
 
@@ -111,31 +123,19 @@ z_index = 1
 tile_set = SubResource("TileSet_gee14")
 script = ExtResource("3_vtaks")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.8, 0.8)
-position_smoothing_enabled = true
-
 [node name="Player" parent="." instance=ExtResource("2_cpr0p")]
 z_index = 1
 position = Vector2(300, -45)
 
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(-300, 45)
+limit_left = 0
+limit_top = -640
+limit_right = 1408
+limit_bottom = 4096
+position_smoothing_enabled = true
+
 [node name="HUD" parent="." instance=ExtResource("4_lbhrr")]
-
-[node name="AboveGround Background" type="TextureRect" parent="."]
-visible = false
-custom_minimum_size = Vector2(4096, 4096)
-offset_left = -2048.0
-offset_top = -2443.0
-offset_right = 2048.0
-offset_bottom = 1653.0
-texture = ExtResource("11_kvpfn")
-
-[node name="UnderGround Background" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(4096, 4096)
-offset_left = -2048.0
-offset_right = 2048.0
-offset_bottom = 4096.0
-texture = ExtResource("12_dinhu")
 
 [node name="DeathOverlay" type="CanvasLayer" parent="."]
 
@@ -200,5 +200,24 @@ text = "Go to main menu"
 z_index = -1
 position = Vector2(-2456, -1993)
 
-[node name="Diamond" parent="." instance=ExtResource("9_0tnpc")]
-position = Vector2(21, -21)
+[node name="UnderGround Background" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(1408, 4096)
+offset_right = 1408.0
+offset_bottom = 4096.0
+texture = ExtResource("12_dinhu")
+
+[node name="WorldBoundaries" type="StaticBody2D" parent="."]
+collision_layer = 128
+collision_mask = 255
+
+[node name="Left" type="CollisionShape2D" parent="WorldBoundaries"]
+shape = SubResource("WorldBoundaryShape2D_gee14")
+
+[node name="Right" type="CollisionShape2D" parent="WorldBoundaries"]
+shape = SubResource("WorldBoundaryShape2D_0tnpc")
+
+[node name="Top" type="CollisionShape2D" parent="WorldBoundaries"]
+shape = SubResource("WorldBoundaryShape2D_u5sy4")
+
+[node name="Bottom" type="CollisionShape2D" parent="WorldBoundaries"]
+shape = SubResource("WorldBoundaryShape2D_vtaks")
