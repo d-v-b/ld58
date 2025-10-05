@@ -6,10 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://d3ugus8k8pc57" path="res://assets/char_mine.png" id="4_dqkch"]
 [ext_resource type="Script" uid="uid://dxa2oseq1vhx4" path="res://scenes/player_animations.gd" id="5_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://con5bojp1em5d" path="res://assets/char_mining_anim.png" id="5_tuyoq"]
-[ext_resource type="Script" path="res://scripts/jump_sound_player.gd" id="6_jump"]
-[ext_resource type="Script" path="res://scripts/swipe_sound_player.gd" id="7_swipe"]
-[ext_resource type="Script" path="res://scripts/crunch_sound_player.gd" id="8_crunch"]
-[ext_resource type="Script" path="res://scripts/death_sound_player.gd" id="9_death"]
+[ext_resource type="Script" uid="uid://cvri3rrpcsanm" path="res://scripts/jump_sound_player.gd" id="6_jump"]
+[ext_resource type="Script" uid="uid://hw28s5dn4y2u" path="res://scripts/swipe_sound_player.gd" id="7_swipe"]
+[ext_resource type="Script" uid="uid://byka4drwdgxw6" path="res://scripts/crunch_sound_player.gd" id="8_crunch"]
+[ext_resource type="Script" uid="uid://cff4ewsee301l" path="res://scripts/death_sound_player.gd" id="9_death"]
 
 [sub_resource type="Animation" id="Animation_dqkch"]
 length = 0.001
