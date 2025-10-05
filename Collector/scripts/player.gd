@@ -42,7 +42,6 @@ func _physics_process(delta):
 		else:
 			movement_input(delta)
 
-
 		if Input.is_action_just_pressed("action_die"):
 			die()
 
@@ -73,14 +72,11 @@ func mine():
 		direction = -1
 	elif mouse_pos.x > position.x:
 		direction = 1
-		
-	
-	
-
 
 func die():
 	is_dead = true
 	died.emit()
+	$Camera2D.shake_screen()
 	%AnimationPlayer.play("player_death")
 	
 func on_hit():
