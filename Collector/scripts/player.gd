@@ -13,6 +13,8 @@ signal mine_signal
 
 var wall_jumps_since_floor = 0
 
+@onready var bomb_label = $BombCountLabel
+
 var is_dead = false
 var direction = 1
 
@@ -25,7 +27,10 @@ func _physics_process(delta):
 	
 	var grid_pos = get_node("/root/Main/TileMapLayer").position_world_to_grid(global_position)
 	var bombs_nearby = get_node("/root/Main/TileMapLayer").count_adjacent_bombs(grid_pos)
-	print("Bombs near player: ", bombs_nearby)
+	#print("Bombs near player: ", bombs_nearby)
+	
+	bomb_label.update_count(bombs_nearby)
+	bomb_label.text = str(bombs_nearby)
 	
 	if not is_dead:
 		if not is_on_floor():
@@ -41,7 +46,6 @@ func _physics_process(delta):
 		
 		else:
 			movement_input(delta)
-
 
 		if Input.is_action_just_pressed("action_die"):
 			die()
@@ -73,14 +77,11 @@ func mine():
 		direction = -1
 	elif mouse_pos.x > position.x:
 		direction = 1
-		
-	
-	
-
 
 func die():
 	is_dead = true
 	died.emit()
+	$Camera2D.shake_screen()
 	%AnimationPlayer.play("player_death")
 	
 func on_hit():

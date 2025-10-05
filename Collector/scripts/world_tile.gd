@@ -76,10 +76,7 @@ func position_grid_to_world(grid_position: Vector2i) -> Vector2:
 	return world_position
 
 func position_world_to_grid(world_position: Vector2) -> Vector2i:
-	var grid_position = Vector2i(world_position) / tile_set.tile_size
-	var cell = grid[grid_position.y][grid_position.x]
-	#if cell:
-	#	cell.build()
+	var grid_position := Vector2i(world_position) / tile_set.tile_size
 	return grid_position
 
 func get_grid_cell(grid_position: Vector2i) -> MiningBlock:

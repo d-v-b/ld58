@@ -20,12 +20,3 @@ offset_bottom = 41.0
 bbcode_enabled = true
 text = "score"
 script = ExtResource("1_ahhtf")
-
-[node name="TextureProgressBar" type="TextureProgressBar" parent="Control"]
-layout_mode = 0
-offset_left = 858.0
-offset_top = 545.0
-offset_right = 1114.0
-offset_bottom = 587.0
-max_value = 8.0
-step = 0.1
