@@ -10,18 +10,23 @@ func _ready() -> void:
 	for y in _size.y:
 		grid.append([])
 		for x in _size.x:
-			var _cell = WorldCell.new()
+			var _cell = WorldCell.new(get_world_2d())
 			var _material = 1 if (y < 4) else 2
 			var rand_value = randi_range(0, 4)
+			var rand_value2 = randi_range(0, 10)
 			
 			if rand_value == 0:
 				_cell.value = 0
 			else:
 				_cell.value = _material
+				if rand_value2 == 10:
+					_cell.is_bomb = true
 			
 			_cell.position = Vector2i(x, y)
 			_cell.world_position = position_grid_to_world(_cell.position)
 			_cell.destroyed.connect(_on_cell_destroyed)
+			_cell.build()
+			
 			grid[y].append(_cell)
 
 	for y in range(-1, _size.y):
@@ -47,10 +52,15 @@ func destroy_cell(cell: WorldCell) -> void:
 func update_neighbours(cell: WorldCell) -> void:
 	var x = cell.position.x
 	var y = cell.position.y
-	update_cell(grid[y-1][x])
-	update_cell(grid[y+1][x])
-	update_cell(grid[y][x-1])
-	update_cell(grid[y][x+1])
+	
+	if (x > 0):
+		update_cell(grid[y][x-1])
+	if (x < _size.x-1):
+		update_cell(grid[y][x+1])
+	if (y > 0):
+		update_cell(grid[y-1][x])
+	if (y < _size.y-1):
+		update_cell(grid[y+1][x])
 	
 	
 func update_cell(cell: WorldCell) -> void:
@@ -66,10 +76,7 @@ func position_grid_to_world(grid_position: Vector2i) -> Vector2:
 	return world_position
 
 func position_world_to_grid(world_position: Vector2) -> Vector2i:
-	var grid_position = Vector2i(world_position) / tile_set.tile_size
-	var cell = grid[grid_position.y][grid_position.x]
-	if cell:
-		cell.build()
+	var grid_position := Vector2i(world_position) / tile_set.tile_size
 	return grid_position
 
 func get_grid_cell(grid_position: Vector2i) -> MiningBlock:
@@ -123,6 +130,8 @@ func choose_tile_offset(x: int, y: int) -> Vector2i:
 	
 func choose_air_offset(x: int, y: int) -> Vector2i:
 	var max_y := grid.size() - 1
+	if y == max_y: return Vector2i(0, 0)
+	
 	var bot_grass = y < max_y and grid[y + 1][x].value == 1
 
 	# Deterministic pseudo-random number based on x and y
@@ -132,3 +141,19 @@ func choose_air_offset(x: int, y: int) -> Vector2i:
 	if bot_grass:
 		return Vector2i(-number, 0)
 	return Vector2i(0, 0)
+
+func count_adjacent_bombs(grid_position: Vector2i) -> int:
+	var directions = [
+		Vector2i(-1, -1), Vector2i(0, -1), Vector2i(1, -1),
+		Vector2i(-1,  0),                   Vector2i(1,  0),
+		Vector2i(-1,  1), Vector2i(0,  1), Vector2i(1,  1),
+	]
+	var count = 0
+	
+	for dir in directions:
+		var check = grid_position + dir
+		if check.y >= 0 and check.y < grid.size() and check.x >= 0 and check.x < grid[0].size():
+				var cell = grid[check.y][check.x]
+				if cell and cell.is_bomb:
+					count += 1
+	return count

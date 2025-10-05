@@ -4,6 +4,10 @@ var player : gamejam_player
 
 func _ready() -> void:
 	player = get_parent()
+	if player and player.has_signal("mine_signal"):
+		player.connect("mine_signal", Callable(self, "_do_mine"))
+		
+	connect("animation_finished", Callable(self, "_on_animation_finish"))
 	
 func _process(delta: float) -> void:
 	if not player:
@@ -16,7 +20,7 @@ func _process(delta: float) -> void:
 	
 	if !player.is_on_floor(): new_anim = "jump"
 
-	if animation != new_anim:
+	if animation!= "mine" && animation != new_anim:
 		if (new_anim == "hard_turn"): _do_hard_turn(player.direction)
 		animation = new_anim
 		play()  # explicitly start playback (optional but safe)
@@ -25,6 +29,18 @@ func _process(delta: float) -> void:
 		flip_h = true
 	elif player.direction == 1:
 		flip_h = false
+		
+func _on_animation_finish():
+	if animation == "mine":
+		animation = "idle"
+	return
+		
+func _do_mine():
+	if animation != "mine":
+		animation = "mine"
+		play()
+
+
 
 func _do_hard_turn(direction):
 	var turn_sprite = AnimatedSprite2D.new()
