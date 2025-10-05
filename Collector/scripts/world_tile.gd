@@ -186,7 +186,7 @@ func choose_air_offset(x: int, y: int) -> Vector2i:
 func count_adjacent_bombs(grid_position: Vector2i) -> int:
 	var directions = [
 		Vector2i(-1, -1), Vector2i(0, -1), Vector2i(1, -1),
-		Vector2i(-1,  0),                   Vector2i(1,  0),
+		Vector2i(-1,  0),                  Vector2i(1,  0),
 		Vector2i(-1,  1), Vector2i(0,  1), Vector2i(1,  1),
 	]
 	var count = 0
@@ -199,27 +199,31 @@ func count_adjacent_bombs(grid_position: Vector2i) -> int:
 					count += 1
 	return count
 
-func count_bombs_in_range(world_position: Vector2, max_distance: float) -> int:
+func count_bombs_in_range(world_position: Vector2) -> int:
 	var count = 0
-	var grid_pos = position_world_to_grid(world_position)
+	var grid_pos := position_world_to_grid(world_position)
+	if world_position.x < 0:
+		grid_pos.x = -1
+	if world_position.y < 0:
+		grid_pos.y = -1
 
-	# Check a radius of cells (convert distance to grid cells)
-	var cell_radius = int(ceil(max_distance / tile_set.tile_size.x)) + 1
+	var _limit = func calc_limit(pos: Vector2i) -> Vector2i:
+		return (grid_pos + pos).max(Vector2i(0, 0)).min(_size - Vector2i(1, 1))
+	var directions = {
+		_limit.call(Vector2i(-1, -1)): null,
+		_limit.call(Vector2i(-1,  0)): null,
+		_limit.call(Vector2i(-1,  1)): null,
+		_limit.call(Vector2i( 0, -1)): null,
+		_limit.call(Vector2i( 0,  1)): null,
+		_limit.call(Vector2i( 1, -1)): null,
+		_limit.call(Vector2i( 1,  0)): null,
+		_limit.call(Vector2i( 1,  1)): null,
+	}
 
-	for dy in range(-cell_radius, cell_radius + 1):
-		for dx in range(-cell_radius, cell_radius + 1):
-			var check_pos = grid_pos + Vector2i(dx, dy)
-
-			# Skip if out of bounds
-			if check_pos.y < 0 or check_pos.y >= grid.size() or check_pos.x < 0 or check_pos.x >= grid[0].size():
-				continue
-
-			var cell = grid[check_pos.y][check_pos.x]
-			if cell and cell.is_bomb and cell.value != 0:
-				# Check actual distance
-				var distance = world_position.distance_to(cell.world_position)
-				if distance <= max_distance:
-					count += 1
+	for check_pos in directions.keys():
+		var cell = grid[check_pos.y][check_pos.x]
+		if cell and cell.is_bomb and cell.value > 0:
+			count += 1
 
 	return count
 

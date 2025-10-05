@@ -28,8 +28,7 @@ func _physics_process(delta):
 	if is_on_floor(): wall_jumps_since_floor = 0
 	
 	var tile_map = get_node("/root/Main/TileMapLayer")
-	var bombs_nearby = tile_map.count_bombs_in_range(global_position, 100.0)  # Match mining range
-	#print("Bombs near player: ", bombs_nearby)
+	var bombs_nearby = tile_map.count_bombs_in_range(global_position)
 
 	bomb_label.update_count(bombs_nearby)
 	bomb_label.text = str(bombs_nearby)
@@ -71,7 +70,7 @@ func _physics_process(delta):
 			die()
 			
 		if Input.is_action_just_pressed("test_cheat"):
-			get_node("/root/Main/TileMapLayer").toggle_cheat_mode()
+			tile_map.toggle_cheat_mode()
 
 		move_and_slide()
 		
