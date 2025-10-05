@@ -26,7 +26,7 @@ func _ready() -> void:
 
 	for y in range(-1, _size.y):
 		for x in _size.x:
-			if y == _size.y - 1:
+			if y == _size.y - 1 || y < 0:
 				set_cell(Vector2i(x, y), 1, Vector2i(4, 0)  + choose_air_offset(x, y))
 			elif grid[y][x].value == 1:
 				set_cell(Vector2i(x, y), 1, Vector2i(1, 2) + choose_tile_offset(x, y))
