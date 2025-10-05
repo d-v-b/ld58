@@ -6,6 +6,7 @@ enum MiningBlockType{
 	NONE,
 	STANDARD,
 	BOMB,
+	INDESTRUCTIBLE = 100,
 }
 
 signal mine
