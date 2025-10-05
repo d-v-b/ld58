@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cgohnh6jevo5g"]
+[gd_scene load_steps=22 format=3 uid="uid://cgohnh6jevo5g"]
 
 [ext_resource type="Script" uid="uid://chmfrm6bvpxm1" path="res://scripts/player.gd" id="1_t5m8q"]
 [ext_resource type="PackedScene" uid="uid://cm5fktnx76hjo" path="res://scenes/mining_direction.tscn" id="2_g2els"]
@@ -80,6 +80,10 @@ region = Rect2(0, 0, 32, 32)
 atlas = ExtResource("5_tuyoq")
 region = Rect2(32, 0, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1ej7"]
+atlas = ExtResource("4_dqkch")
+region = Rect2(112, 0, 16, 16)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_3v2ag"]
 animations = [{
 "frames": [{
@@ -109,6 +113,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jej6c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1ej7")
 }],
 "loop": true,
 "name": &"all",
@@ -116,7 +123,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y4r1p")
+"texture": SubResource("AtlasTexture_d2wvv")
 }],
 "loop": true,
 "name": &"hard_turn",
@@ -125,14 +132,17 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qlg0r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tuyoq")
 }],
 "loop": true,
 "name": &"idle",
-"speed": 5.0
+"speed": 1.75
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_d2wvv")
+"texture": SubResource("AtlasTexture_f1ej7")
 }],
 "loop": true,
 "name": &"jump",
@@ -151,9 +161,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_tuyoq")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_fjrip")
 }, {
 "duration": 1.0,
@@ -161,6 +168,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ur7pv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y4r1p")
 }],
 "loop": true,
 "name": &"run",
@@ -206,7 +216,7 @@ z_index = 1
 position = Vector2(0, -8)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_3v2ag")
-animation = &"mine"
+animation = &"idle"
 autoplay = "idle"
 script = ExtResource("5_qlg0r")
 

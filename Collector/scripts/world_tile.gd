@@ -10,7 +10,7 @@ func _ready() -> void:
 	for y in _size.y:
 		grid.append([])
 		for x in _size.x:
-			var _cell = WorldCell.new(get_world_2d())
+			var _cell = WorldCell.new(get_world_2d(), self)
 			var _material = 1 if (y < 4) else 2
 			var rand_value = randi_range(0, 4)
 			var rand_value2 = randi_range(0, 10)

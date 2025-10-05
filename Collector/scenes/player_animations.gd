@@ -33,6 +33,7 @@ func _process(delta: float) -> void:
 func _on_animation_finish():
 	if animation == "mine":
 		animation = "idle"
+		play()
 	return
 		
 func _do_mine():
