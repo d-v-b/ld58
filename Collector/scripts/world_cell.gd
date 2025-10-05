@@ -13,13 +13,21 @@ var world : World2D
 var tile_map : TileMapLayer
 
 var tile_highlight = load("res://scenes/mining_block_selector.tscn")
+var tile_diamond = load("res://scenes/diamond.tscn")
 
 func _init(_world : World2D, _tile_map):
 	tile_map = _tile_map
 	world = _world
 
 func build() -> void:
-	if value == 0 or mining_block: return
+	if value == -1:
+		var diamond = tile_diamond.instantiate()
+		diamond.position = world_position
+		tile_map.add_child(diamond)
+		return
+
+	if value == 0 or mining_block:
+		return
 	
 	if is_bomb:
 		mining_block = MiningBlockFactory.create(MiningBlock.MiningBlockType.BOMB, world, world_position, position)

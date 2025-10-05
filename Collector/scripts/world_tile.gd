@@ -3,6 +3,9 @@ extends TileMapLayer
 class_name WorldTile
 
 const _size = Vector2i(22, 64)
+const DENSITY_HOLE = 0.25
+const DENSITY_BOMB = 0.10
+const DENSITY_DIAMOND = 0.012
 
 var grid: Array[Array]
 
@@ -12,14 +15,13 @@ func _ready() -> void:
 		for x in _size.x:
 			var _cell = WorldCell.new(get_world_2d(), self)
 			var _material = 1 if (y < 4) else 2
-			var rand_value = randi_range(0, 4)
-			var rand_value2 = randi_range(0, 10)
+			var rand_value = randf()
 			
-			if rand_value == 0:
-				_cell.value = 0
+			if rand_value < DENSITY_HOLE:
+				_cell.value = -1 if rand_value < DENSITY_DIAMOND else 0
 			else:
 				_cell.value = _material
-				if rand_value2 == 10:
+				if rand_value < DENSITY_HOLE + DENSITY_BOMB:
 					_cell.is_bomb = true
 			
 			_cell.position = Vector2i(x, y)
@@ -32,13 +34,13 @@ func _ready() -> void:
 	for y in range(-1, _size.y):
 		for x in _size.x:
 			if y == _size.y - 1 || y < 0:
-				set_cell(Vector2i(x, y), 1, Vector2i(4, 0)  + choose_air_offset(x, y))
+				set_cell(Vector2i(x, y), 1, Vector2i(4, 0) + choose_air_offset(x, y))
 			elif grid[y][x].value == 1:
 				set_cell(Vector2i(x, y), 1, Vector2i(1, 2) + choose_tile_offset(x, y))
 			elif grid[y][x].value == 2:
-				set_cell(Vector2i(x, y), 1, Vector2i(5, 2)  + choose_tile_offset(x, y))
+				set_cell(Vector2i(x, y), 1, Vector2i(5, 2) + choose_tile_offset(x, y))
 			else:
-				set_cell(Vector2i(x, y), 1, Vector2i(4, 0)  + choose_air_offset(x, y))
+				set_cell(Vector2i(x, y), 1, Vector2i(4, 0) + choose_air_offset(x, y))
 
 func _on_cell_destroyed(grid_position: Vector2i) -> void:
 	var cell = grid[grid_position.y][grid_position.x]
@@ -64,12 +66,12 @@ func update_neighbours(cell: WorldCell) -> void:
 	
 	
 func update_cell(cell: WorldCell) -> void:
-	if cell.value == 0:
-		set_cell(cell.position, 1, Vector2i(4, 0)  + choose_air_offset(cell.position.x, cell.position.y))
+	if cell.value <= 0:
+		set_cell(cell.position, 1, Vector2i(4, 0) + choose_air_offset(cell.position.x, cell.position.y))
 	elif cell.value == 1:
-		set_cell(cell.position, 1, Vector2i(1, 2)  + choose_tile_offset(cell.position.x, cell.position.y))
+		set_cell(cell.position, 1, Vector2i(1, 2) + choose_tile_offset(cell.position.x, cell.position.y))
 	elif cell.value == 2:
-		set_cell(cell.position, 1, Vector2i(5, 2)  + choose_tile_offset(cell.position.x, cell.position.y))
+		set_cell(cell.position, 1, Vector2i(5, 2) + choose_tile_offset(cell.position.x, cell.position.y))
 
 func position_grid_to_world(grid_position: Vector2i) -> Vector2:
 	var world_position := Vector2(grid_position * tile_set.tile_size + tile_set.tile_size / 2)
@@ -88,10 +90,10 @@ func choose_tile_offset(x: int, y: int) -> Vector2i:
 		return Vector2i.ZERO
 	var max_x = grid[0].size() - 1
 
-	var top_free = y == 0 or (y > 0 and grid[y - 1][x].value == 0)
-	var bot_free = y < max_y and grid[y + 1][x].value == 0
-	var lft_free = x > 0 and grid[y][x - 1].value == 0
-	var rgt_free = x < max_x and grid[y][x + 1].value == 0
+	var top_free = y == 0 or (y > 0 and grid[y - 1][x].value <= 0)
+	var bot_free = y < max_y and grid[y + 1][x].value <= 0
+	var lft_free = x > 0 and grid[y][x - 1].value <= 0
+	var rgt_free = x < max_x and grid[y][x + 1].value <= 0
 	
 	if top_free && bot_free:
 		if lft_free:
@@ -135,8 +137,8 @@ func choose_air_offset(x: int, y: int) -> Vector2i:
 	var bot_grass = y < max_y and grid[y + 1][x].value == 1
 
 	# Deterministic pseudo-random number based on x and y
-	var seed := int((x * 73856093) ^ (y * 19349663)) & 0x7fffffff
-	var number := seed % 5  # gives values 0–4, consistent per (x, y)
+	var _seed := int((x * 73856093) ^ (y * 19349663)) & 0x7fffffff
+	var number := _seed % 5  # gives values 0–4, consistent per (x, y)
 
 	if bot_grass:
 		return Vector2i(-number, 0)
