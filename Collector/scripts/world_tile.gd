@@ -24,7 +24,6 @@ func _ready() -> void:
 				_cell.build()
 			
 			
-			
 			_cell.position = Vector2i(x, y)
 			_cell.world_position = position_grid_to_world(_cell.position)
 			_cell.destroyed.connect(_on_cell_destroyed)
