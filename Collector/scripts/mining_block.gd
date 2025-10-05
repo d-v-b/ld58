@@ -5,6 +5,7 @@ class_name MiningBlock
 enum MiningBlockType{
 	NONE,
 	STANDARD,
+	INDESTRUCTIBLE = 100,
 }
 
 signal mine
