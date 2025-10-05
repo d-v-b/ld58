@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ckwh2ntmpj2ch"]
+[gd_scene load_steps=7 format=3 uid="uid://d2oyp2jbjhicj"]
 
 [ext_resource type="Texture2D" uid="uid://cflqfg5welvva" path="res://assets/parallex/Layer6.png" id="1_qs7dk"]
 [ext_resource type="Texture2D" uid="uid://vt8iosf8le8a" path="res://assets/parallex/Layer5.png" id="2_2oy3k"]
@@ -11,54 +11,60 @@
 
 [node name="Sky" type="Parallax2D" parent="."]
 scroll_scale = Vector2(0.2, 1)
-repeat_size = Vector2(1024, 0)
+repeat_size = Vector2(4096, 0)
 repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Sky"]
+scale = Vector2(4, 4)
 texture = ExtResource("1_qs7dk")
 centered = false
 
 [node name="Parallax2D2" type="Parallax2D" parent="."]
 scroll_scale = Vector2(0.3, 1)
-repeat_size = Vector2(1024, 0)
+repeat_size = Vector2(4096, 0)
 repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D2"]
+scale = Vector2(4, 4)
 texture = ExtResource("2_2oy3k")
-centered = false
-
-[node name="Clouds" type="Parallax2D" parent="."]
-scroll_scale = Vector2(0.4, 1)
-repeat_size = Vector2(1024, 0)
-repeat_times = 3
-
-[node name="Sprite2D" type="Sprite2D" parent="Clouds"]
-texture = ExtResource("3_jy56r")
 centered = false
 
 [node name="Parallax2D4" type="Parallax2D" parent="."]
 scroll_scale = Vector2(0.5, 1)
-repeat_size = Vector2(1024, 0)
+repeat_size = Vector2(4096, 0)
 repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D4"]
+scale = Vector2(4, 4)
 texture = ExtResource("4_11q5a")
+centered = false
+
+[node name="Clouds" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.4, 1)
+repeat_size = Vector2(4096, 0)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Clouds"]
+scale = Vector2(4, 4)
+texture = ExtResource("3_jy56r")
 centered = false
 
 [node name="Parallax2D5" type="Parallax2D" parent="."]
 scroll_scale = Vector2(0.6, 1)
-repeat_size = Vector2(1024, 0)
+repeat_size = Vector2(4096, 0)
 repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D5"]
+scale = Vector2(4, 4)
 texture = ExtResource("5_cdfjv")
 centered = false
 
 [node name="Parallax2D6" type="Parallax2D" parent="."]
 scroll_scale = Vector2(0.7, 1)
-repeat_size = Vector2(1024, 0)
+repeat_size = Vector2(4096, 0)
 repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D6"]
+scale = Vector2(4, 4)
 texture = ExtResource("6_cs2et")
 centered = false
