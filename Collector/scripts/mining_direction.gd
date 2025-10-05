@@ -8,7 +8,6 @@ func _process(delta: float) -> void:
 	target_position = mouse_pos.normalized() * mining_length
 	
 	var collider := get_collider()
-	
 	var corrected_collision_point := correct_collision_point(get_collision_point())
 	
 	var block = collider.get_grid_cell(collider.position_world_to_grid(corrected_collision_point)) if collider is WorldTile else null
