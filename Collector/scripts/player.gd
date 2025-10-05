@@ -21,6 +21,10 @@ signal change_direction
 func _physics_process(delta):
 	if is_on_floor(): wall_jumps_since_floor = 0
 	
+	var grid_pos = get_node("/root/Main/TileMapLayer").position_world_to_grid(global_position)
+	var bombs_nearby = get_node("/root/Main/TileMapLayer").count_adjacent_bombs(grid_pos)
+	print("Bombs near player: ", bombs_nearby)
+	
 	if not is_dead:
 		if not is_on_floor():
 			if is_on_wall():
