@@ -3,7 +3,11 @@ extends Node2D
 @onready var player = $Player
 @onready var death_overlay = $DeathOverlay
 
+@export var diamonds = 10
+
+var diamonds_collected = 0
 var score = 30
+
 
 func _ready():
 	if player:
