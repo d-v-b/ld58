@@ -43,8 +43,9 @@ _data = {
 &"player_death": SubResource("Animation_qhqgy")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3vyb7"]
-size = Vector2(48, 48)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qlg0r"]
+radius = 20.0
+height = 55.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
 atlas = ExtResource("4_dqkch")
@@ -145,6 +146,7 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D"]
+collision_mask = 133
 script = ExtResource("1_t5m8q")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -168,9 +170,11 @@ width = 4.0
 default_color = Color(0.10200001, 0.3011999, 0.6, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_3vyb7")
+position = Vector2(0, -4)
+shape = SubResource("CapsuleShape2D_qlg0r")
 
 [node name="MiningDirection" parent="." node_paths=PackedStringArray("block_selector") instance=ExtResource("2_g2els")]
+collision_mask = 4
 block_selector = NodePath("../MiningBlockSelector")
 
 [node name="MiningBlockSelector" parent="." instance=ExtResource("3_qhqgy")]

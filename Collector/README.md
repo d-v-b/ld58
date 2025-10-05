@@ -2,5 +2,7 @@
 
 | Layer | Purpose |
 |:------|:--------|
-| 1 | World objects (player, blocks, etc...) |
-| 10 | World boundaries (borders, etc...) |
+| 1 | Only the player |
+| 2 | Items |
+| 3 | World objects (blocks, etc...) |
+| 8 | World boundaries (borders, etc...) |
