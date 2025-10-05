@@ -10,14 +10,20 @@ func _ready() -> void:
 	for y in _size.y:
 		grid.append([])
 		for x in _size.x:
-			var _cell = WorldCell.new()
+			var _cell = WorldCell.new(get_world_2d())
 			var _material = 1 if (y < 4) else 2
 			var rand_value = randi_range(0, 4)
+			var rand_value2 = randi_range(0, 10)
 			
 			if rand_value == 0:
 				_cell.value = 0
 			else:
 				_cell.value = _material
+				if rand_value2 == 10:
+					_cell.is_bomb = true
+				_cell.build()
+			
+			
 			
 			_cell.position = Vector2i(x, y)
 			_cell.world_position = position_grid_to_world(_cell.position)
@@ -47,10 +53,15 @@ func destroy_cell(cell: WorldCell) -> void:
 func update_neighbours(cell: WorldCell) -> void:
 	var x = cell.position.x
 	var y = cell.position.y
-	update_cell(grid[y-1][x])
-	update_cell(grid[y+1][x])
-	update_cell(grid[y][x-1])
-	update_cell(grid[y][x+1])
+	
+	if (x > 0):
+		update_cell(grid[y][x-1])
+	if (x < _size.x-1):
+		update_cell(grid[y][x+1])
+	if (y > 0):
+		update_cell(grid[y-1][x])
+	if (y < _size.y-1):
+		update_cell(grid[y+1][x])
 	
 	
 func update_cell(cell: WorldCell) -> void:
@@ -68,8 +79,8 @@ func position_grid_to_world(grid_position: Vector2i) -> Vector2:
 func position_world_to_grid(world_position: Vector2) -> Vector2i:
 	var grid_position = Vector2i(world_position) / tile_set.tile_size
 	var cell = grid[grid_position.y][grid_position.x]
-	if cell:
-		cell.build()
+	#if cell:
+	#	cell.build()
 	return grid_position
 
 func get_grid_cell(grid_position: Vector2i) -> MiningBlock:
@@ -123,6 +134,8 @@ func choose_tile_offset(x: int, y: int) -> Vector2i:
 	
 func choose_air_offset(x: int, y: int) -> Vector2i:
 	var max_y := grid.size() - 1
+	if y == max_y: return Vector2i(0, 0)
+	
 	var bot_grass = y < max_y and grid[y + 1][x].value == 1
 
 	# Deterministic pseudo-random number based on x and y
