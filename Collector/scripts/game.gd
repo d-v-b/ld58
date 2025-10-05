@@ -6,7 +6,7 @@ extends Node2D
 @export var diamonds = 10
 
 var diamonds_collected = 0
-var score = 30
+var score = 0
 
 
 func _ready():
