@@ -9,8 +9,8 @@ enum MiningBlockType{
 	INDESTRUCTIBLE = 100,
 }
 
-signal mine
-signal destroy
+signal mine(score_modifier: int)
+signal destroy(score_modifier: int)
 signal damaged(current_health: int, max_health: int)
 
 var health: int = 2
@@ -26,15 +26,15 @@ func _init(_world, world_position: Vector2, _tile_position : Vector2i) -> void:
 	mine.connect(_on_mine)
 	destroy.connect(_on_destroy)
 
-func _on_mine() -> void:
-	reduce_health()
+func _on_mine(score_modifier: int) -> void:
+	reduce_health(score_modifier)
 	
-func _on_destroy() -> void:
+func _on_destroy(_score_modifier: int) -> void:
 	queue_free()
 
-func reduce_health(value: int = 1):
+func reduce_health(score_modifier: int, value: int = 1):
 	health -= value
 	if health <= 0:
-		destroy.emit()
+		destroy.emit(score_modifier)
 	else:
 		damaged.emit(health, max_health)

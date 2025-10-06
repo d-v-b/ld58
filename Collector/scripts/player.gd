@@ -60,7 +60,7 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("action_mine"):
 			mine()
 			if $MiningBlockSelector.current:
-				$MiningBlockSelector.current.mine.emit()
+				$MiningBlockSelector.current.mine.emit(bombs_nearby)
 				$CrunchSound.play_random_crunch()
 		
 		else:

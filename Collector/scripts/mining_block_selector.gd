@@ -19,7 +19,7 @@ var current: MiningBlock:
 		if current: current.destroy.connect(_on_destroy_current)
 		change_current.emit()
 
-func _on_destroy_current() -> void:
+func _on_destroy_current(_score_modifier: int) -> void:
 	current = null
 
 func _on_change_current() -> void:
