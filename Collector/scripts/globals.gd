@@ -13,3 +13,4 @@ func reset_score() -> void:
 	if score > high_score:
 		high_score = score
 	score = 0
+	
