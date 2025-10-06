@@ -8,9 +8,9 @@ signal score_updated
 func add_score(points: int) -> void:
 	score += points
 	emit_signal("score_updated")
-
-func reset_score() -> void:
 	if score > high_score:
 		high_score = score
+
+func reset_score() -> void:
 	score = 0
 	
