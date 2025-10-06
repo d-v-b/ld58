@@ -74,10 +74,20 @@ func _on_cell_scored(score: int, world_pos: Vector2) -> void:
 	var popup = Label.new()
 	popup.text = "+%d" % score
 	popup.add_theme_font_size_override("font_size", 24)
-	popup.add_theme_color_override("font_color", Color(1, 0.9, 0.2))  # Gold color
+	if score == 10:
+		popup.add_theme_color_override("font_color", Color.GREEN_YELLOW)
+	elif score == 20:
+		popup.add_theme_color_override("font_color", Color.YELLOW)
+	elif score == 30:
+		popup.add_theme_color_override("font_color", Color.RED)
+	elif score == 40:
+		popup.add_theme_color_override("font_color", Color.PURPLE)
+	elif score == 50:
+		popup.add_theme_color_override("font_color", Color.GRAY)
 	popup.add_theme_color_override("font_outline_color", Color(0, 0, 0))
 	popup.add_theme_constant_override("outline_size", 2)
-	popup.position = player.global_position + Vector2(-20, -80)  # Above player's head
+	#popup.position = player.global_position + Vector2(-20, -80)  # Above player's head
+	popup.position = world_pos # Above cell
 	popup.z_index = 10
 
 	var script = load("res://scripts/score_popup.gd")
