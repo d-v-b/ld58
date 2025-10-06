@@ -5,7 +5,7 @@ const SETTINGS_FILE = "user://settings.cfg"
 
 # Audio settings
 var master_volume: float = 0.75
-var music_volume: float = 1.0
+var music_volume: float = 0.3
 var sfx_volume: float = 1.0
 
 # Input mapping - stores custom key mappings
@@ -43,8 +43,8 @@ func load_settings() -> void:
 		return
 
 	# Load audio settings
-	master_volume = config.get_value("audio", "master_volume", 1.0)
-	music_volume = config.get_value("audio", "music_volume", 1.0)
+	master_volume = config.get_value("audio", "master_volume", 0.75)
+	music_volume = config.get_value("audio", "music_volume", 0.3)
 	sfx_volume = config.get_value("audio", "sfx_volume", 1.0)
 
 	# Load custom input mappings (stored as dictionaries)
