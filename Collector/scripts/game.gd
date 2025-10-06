@@ -18,10 +18,7 @@ func _ready():
 		push_error("Player node not found!")
 
 	death_overlay.visible = false
-	
-	var timer = $"HUD/Timer"
-	timer.start()
-	timer.timeout.connect(_on_timer_timeout)
+
 	# Connect button signals
 	$"DeathOverlay/Menu/VBoxContainer/Play again".pressed.connect(_on_play_again_pressed)
 	$"DeathOverlay/Menu/VBoxContainer/Go to main menu".pressed.connect(_on_main_menu_pressed)

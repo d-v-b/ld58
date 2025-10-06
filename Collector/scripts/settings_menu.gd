@@ -46,7 +46,10 @@ func _on_master_volume_changed(value: float) -> void:
 	pending_volume_changes = true
 
 func _on_music_volume_changed(value: float) -> void:
-	# Just update label, don't save
+	# Apply immediately but don't save
+	var music_bus = AudioServer.get_bus_index("Music")
+	if music_bus != -1:
+		AudioServer.set_bus_volume_db(music_bus, linear_to_db(value))
 	music_label.text = "%d%%" % (value * 100)
 	pending_volume_changes = true
 
