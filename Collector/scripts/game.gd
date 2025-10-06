@@ -51,6 +51,7 @@ func show_death_screen():
 	# get_tree().paused = true
 
 func _on_play_again_pressed():
+	Globals.reset_score()
 	get_tree().reload_current_scene()
 
 func _on_main_menu_pressed():
