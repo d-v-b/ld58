@@ -12,11 +12,13 @@ var world_position: Vector2
 var mining_block: MiningBlock
 var world : World2D
 var tile_map : WorldTile
-var damage_overlay: ColorRect = null
-var glow_overlay: ColorRect = null
+var damage_overlay: TextureRect = null
+var glow_overlay: TextureRect = null
 
 var tile_highlight = load("res://scenes/mining_block_selector.tscn")
 var tile_diamond = load("res://scenes/diamond.tscn")
+var damage_img = load("res://assets/damage-1.png")
+var bomb_img = load("res://assets/bomb.png")
 
 func _init(_world : World2D, _tile_map):
 	tile_map = _tile_map
@@ -96,24 +98,28 @@ func _on_damaged(current_health: int, max_health: int) -> void:
 
 	# Create or update damage overlay
 	if damage_overlay == null:
-		damage_overlay = ColorRect.new()
+		damage_overlay = TextureRect.new()
+		damage_overlay.texture = damage_img
+		
 		damage_overlay.size = Vector2(64, 64)
 		damage_overlay.position = world_position - Vector2(32, 32)
 		damage_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		tile_map.add_child(damage_overlay)
 
 	# Darken the tile based on damage (more damage = darker)
-	var darkness = damage_percentage * 0.6  # Max 60% darkness
-	damage_overlay.color = Color(0, 0, 0, darkness)
+	#var darkness = damage_percentage * 0.6  # Max 60% darkness
+	#damage_overlay.color = Color(0, 0, 0, darkness)
 
 func set_glow(should_glow: bool) -> void:
 	if should_glow:
 		if glow_overlay == null:
-			glow_overlay = ColorRect.new()
+			#glow_overlay = ColorRect.new()
+			glow_overlay = TextureRect.new()
+			glow_overlay.texture = bomb_img
 			glow_overlay.size = Vector2(64, 64)
 			glow_overlay.position = world_position - Vector2(32, 32)
 			glow_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
-			glow_overlay.color = Color(1, 0.3, 0, 0.3)  # Orange glow
+			
 			tile_map.add_child(glow_overlay)
 	else:
 		if glow_overlay:

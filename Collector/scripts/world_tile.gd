@@ -30,6 +30,10 @@ func _ready() -> void:
 				_cell.value = _material
 				if rand_value < DENSITY_HOLE + DENSITY_BOMB:
 					_cell.is_bomb = true
+					
+			if (y == 0):
+				_cell.is_bomb = false
+				_cell.value = 1
 			
 			_cell.position = Vector2i(x, y)
 			_cell.world_position = position_grid_to_world(_cell.position)
@@ -90,18 +94,22 @@ func update_neighbours(cell: WorldCell) -> void:
 	var x = cell.position.x
 	var y = cell.position.y
 
-	if (x > 0):
-		update_cell(grid[y][x-1])
-		update_bomb_glow(grid[y][x-1])
-	if (x < _size.x-1):
-		update_cell(grid[y][x+1])
-		update_bomb_glow(grid[y][x+1])
-	if (y > 0):
-		update_cell(grid[y-1][x])
-		update_bomb_glow(grid[y-1][x])
-	if (y < _size.y-1):
-		update_cell(grid[y+1][x])
-		update_bomb_glow(grid[y+1][x])
+	var adjacent_positions = [
+		Vector2i(x - 1, y),  # left
+		Vector2i(x + 1, y),  # right
+		Vector2i(x, y - 1),  # top
+		Vector2i(x, y + 1),  # bottom
+		Vector2i(x - 1, y - 1),  # left
+		Vector2i(x + 1, y + 1),  # right
+		Vector2i(x + 1, y - 1),  # top
+		Vector2i(x - 1, y + 1),  # bottom
+	]
+
+	for pos in adjacent_positions:
+		if pos.x < 0 or pos.x >= _size.x or pos.y < 0 or pos.y >= _size.y:
+			continue
+		update_cell(grid[pos.y][pos.x])
+		update_bomb_glow(grid[pos.y][pos.x])
 	
 	
 func update_cell(cell: WorldCell) -> void:
@@ -240,16 +248,18 @@ func is_bomb_isolated(cell: WorldCell) -> bool:
 		Vector2i(x + 1, y),  # right
 		Vector2i(x, y - 1),  # top
 		Vector2i(x, y + 1),  # bottom
+		Vector2i(x - 1, y - 1),  # left
+		Vector2i(x + 1, y + 1),  # right
+		Vector2i(x + 1, y - 1),  # top
+		Vector2i(x - 1, y + 1),  # bottom
 	]
 
 	for pos in adjacent_positions:
-		# Skip if out of bounds
 		if pos.x < 0 or pos.x >= _size.x or pos.y < 0 or pos.y >= _size.y:
 			continue
 
 		var adjacent_cell = grid[pos.y][pos.x]
-		# If there's a non-bomb, non-air block adjacent, it's not isolated
-		if adjacent_cell.value != 0 and not adjacent_cell.is_bomb:
+		if (adjacent_cell.value != 0 and adjacent_cell.value != -1)and not adjacent_cell.is_bomb:
 			return false
 
 	return true
@@ -260,6 +270,7 @@ func update_bomb_glow(cell: WorldCell) -> void:
 
 	var isolated = is_bomb_isolated(cell)
 	cell.set_glow(isolated)
+
 
 func reveal_all_bombs() -> void:
 	for y in _size.y:

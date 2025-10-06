@@ -31,6 +31,11 @@ func _process(delta: float) -> void:
 				continue
 
 			var cell = tile_map.grid[check_pos.y][check_pos.x]
+			
+			# check same tile
+			if tile_map.position_world_to_grid(mouse_pos) != tile_map.position_world_to_grid(cell.world_position):
+				continue
+			
 			if cell and cell.mining_block and cell.value != 0:
 				# Check if block is within mining range of player
 				var distance_from_player = player_pos.distance_to(cell.world_position)
