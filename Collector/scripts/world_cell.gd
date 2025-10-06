@@ -55,6 +55,7 @@ func destroy() -> void:
 	# Emit score for popup
 	if score > 0:
 		scored.emit(score, world_position)
+		Globals.add_score(score)
 
 	for i in 32:
 		var color = Color(0.404, 0.275, 0.239) if value == 1 else Color(0.392, 0.408, 0.427, 1.0)

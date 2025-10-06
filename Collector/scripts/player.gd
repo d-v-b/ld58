@@ -105,6 +105,7 @@ func die():
 	died.emit()
 	$Camera2D.shake_screen()
 	%AnimationPlayer.play("player_death")
+	Globals.reset_score()
 	
 func on_hit():
 	die()
