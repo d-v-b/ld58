@@ -34,6 +34,7 @@ func _physics_process(delta: float) -> void:
 	
 	var distance_to_end = (end_pos - position).length()
 	if (distance_to_end < 30):
+		Globals.update()
 		queue_free()
 	
 	# progress (0 at start, 1 at end)
