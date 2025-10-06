@@ -3,7 +3,7 @@
 [ext_resource type="FontFile" uid="uid://dakrty3k5eh2s" path="res://assets/PixelOperator8.ttf" id="1_6fi6k"]
 [ext_resource type="Texture2D" uid="uid://d4j6gx1bemhte" path="res://assets/coin_bag/background.png" id="2_5ysmq"]
 [ext_resource type="Texture2D" uid="uid://c3x8ivc55v4b4" path="res://assets/coin_bag/size-1.png" id="3_6fi6k"]
-[ext_resource type="Script" path="res://scripts/timer.gd" id="5_047uy"]
+[ext_resource type="Script" uid="uid://toxihfe7n6u5" path="res://scripts/timer.gd" id="5_047uy"]
 [ext_resource type="Script" uid="uid://b4i2vb4knaspe" path="res://scripts/score_label.gd" id="5_uo2fv"]
 
 [node name="HUD" type="CanvasLayer"]

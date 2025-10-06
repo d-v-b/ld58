@@ -56,6 +56,9 @@ func destroy() -> void:
 	# Calculate score based on nearby bombs
 	var nearby_bombs = tile_map.count_adjacent_bombs(position)
 	var score = nearby_bombs * 10
+	
+	if is_bomb:
+		score = 0
 
 	# Emit score for popup
 	if score > 0:
