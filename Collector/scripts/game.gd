@@ -16,13 +16,17 @@ func _ready():
 		push_error("Player node not found!")
 
 	death_overlay.visible = false
-
+	
+	var timer = $"HUD/Timer"
+	timer.start()
+	timer.timeout.connect(_on_timer_timeout)
 	# Connect button signals
 	$"DeathOverlay/Menu/VBoxContainer/Play again".pressed.connect(_on_play_again_pressed)
 	$"DeathOverlay/Menu/VBoxContainer/Go to main menu".pressed.connect(_on_main_menu_pressed)
 
 func _on_player_died():
 	print('the player died')
+	$"HUD/Timer".stop()
 
 	# Reveal all bombs
 	var tile_map = $TileMapLayer
@@ -49,3 +53,6 @@ func _on_play_again_pressed():
 
 func _on_main_menu_pressed():
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+
+func _on_timer_timeout():
+	$Player.die()
