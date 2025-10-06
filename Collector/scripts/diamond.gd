@@ -25,7 +25,7 @@ func _on_body_entered(body: Node2D) -> void:
 		# Create score popup
 		var popup = Label.new()
 		popup.text = "+%d" % score
-		popup.add_theme_font_size_override("font_size", 24)
+		popup.add_theme_font_size_override("font_size", 48)
 		popup.add_theme_color_override("font_color", Color(0.0, 0.85, 0.85))
 		popup.add_theme_color_override("font_outline_color", Color(0, 0, 0))
 		popup.add_theme_constant_override("outline_size", 2)
