@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://upb4cf8v7m5a" path="res://scripts/world_tile.gd" id="3_vtaks"]
 [ext_resource type="PackedScene" uid="uid://bgh183yp2hi7y" path="res://scenes/hud.tscn" id="4_lbhrr"]
 [ext_resource type="Script" uid="uid://c8d5eey6t21gm" path="res://scripts/bomb_count_label.gd" id="5_0tnpc"]
-[ext_resource type="Script" path="res://scripts/camera_2d.gd" id="5_gee14"]
+[ext_resource type="Script" uid="uid://1cvln46xw26y" path="res://scripts/camera_2d.gd" id="5_gee14"]
 [ext_resource type="FontFile" uid="uid://dakrty3k5eh2s" path="res://assets/PixelOperator8.ttf" id="10_vtaks"]
 [ext_resource type="Texture2D" uid="uid://gbir15ew0fxx" path="res://assets/underground_background.png" id="12_dinhu"]
 [ext_resource type="PackedScene" uid="uid://d2oyp2jbjhicj" path="res://scenes/parallax_background.tscn" id="13_kvuet"]
@@ -345,11 +345,17 @@ shape = SubResource("WorldBoundaryShape2D_u5sy4")
 shape = SubResource("WorldBoundaryShape2D_vtaks")
 
 [node name="Label" type="Label" parent="."]
-offset_left = 111.0
-offset_top = -129.0
-offset_right = 463.0
-offset_bottom = -93.0
+offset_left = 463.0
+offset_top = -180.0
+offset_right = 1021.0
+offset_bottom = -50.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("10_vtaks")
 theme_override_font_sizes/font_size = 16
-text = "Bombs nearby:"
+text = "Lots of treasure buried down there.
+Just watch out for those mines.
+That number over your head counts the mines
+buried near you. 
+
+More risk, more reward!
+"
