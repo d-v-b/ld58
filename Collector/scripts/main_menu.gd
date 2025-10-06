@@ -21,4 +21,6 @@ func _on_quit_button_pressed() -> void:
 
 
 func _on_options_button_pressed() -> void:
-	pass # Replace with function body.
+	var settings_scene = load("res://scenes/settings_menu.tscn")
+	var settings_instance = settings_scene.instantiate()
+	add_child(settings_instance)
