@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bgh183yp2hi7y"]
+[gd_scene load_steps=6 format=3 uid="uid://bgh183yp2hi7y"]
 
 [ext_resource type="FontFile" uid="uid://dakrty3k5eh2s" path="res://assets/PixelOperator8.ttf" id="1_6fi6k"]
 [ext_resource type="Texture2D" uid="uid://d4j6gx1bemhte" path="res://assets/coin_bag/background.png" id="2_5ysmq"]
 [ext_resource type="Texture2D" uid="uid://c3x8ivc55v4b4" path="res://assets/coin_bag/size-1.png" id="3_6fi6k"]
+[ext_resource type="Script" uid="uid://toxihfe7n6u5" path="res://scripts/timer.gd" id="5_047uy"]
 [ext_resource type="Script" uid="uid://b4i2vb4knaspe" path="res://scripts/score_label.gd" id="5_uo2fv"]
 
 [node name="HUD" type="CanvasLayer"]
@@ -62,3 +63,34 @@ theme_override_font_sizes/font_size = 32
 text = "0"
 horizontal_alignment = 1
 script = ExtResource("5_uo2fv")
+
+[node name="Timer" type="Panel" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -81.0
+offset_bottom = 27.0
+grow_horizontal = 0
+script = ExtResource("5_047uy")
+
+[node name="Msecs" type="Label" parent="Timer"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 76.0
+offset_bottom = 46.0
+text = "000"
+horizontal_alignment = 2
+
+[node name="Seconds" type="Label" parent="Timer"]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 40.0
+text = "00."
+horizontal_alignment = 2
+
+[node name="Minutes" type="Label" parent="Timer"]
+layout_mode = 0
+offset_right = 25.0
+offset_bottom = 23.0
+text = "00:"
+horizontal_alignment = 2
