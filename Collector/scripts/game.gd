@@ -8,6 +8,8 @@ extends Node2D
 var diamonds_collected = 0
 #var score = 0
 
+var settings_menu_instance = null
+
 
 func _ready():
 	if player:
@@ -20,6 +22,10 @@ func _ready():
 	# Connect button signals
 	$"DeathOverlay/Menu/VBoxContainer/Play again".pressed.connect(_on_play_again_pressed)
 	$"DeathOverlay/Menu/VBoxContainer/Go to main menu".pressed.connect(_on_main_menu_pressed)
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		toggle_settings_menu()
 
 func _on_player_died():
 	print('the player died')
@@ -49,3 +55,33 @@ func _on_play_again_pressed():
 
 func _on_main_menu_pressed():
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+
+func toggle_settings_menu() -> void:
+	if settings_menu_instance == null:
+		# Open settings menu
+		var settings_scene = load("res://scenes/settings_menu.tscn")
+		settings_menu_instance = settings_scene.instantiate()
+
+		# Create a CanvasLayer to ensure proper positioning
+		var canvas_layer = CanvasLayer.new()
+		canvas_layer.layer = 100
+		add_child(canvas_layer)
+		canvas_layer.add_child(settings_menu_instance)
+
+		# Store reference to canvas layer for cleanup
+		settings_menu_instance.set_meta("canvas_layer", canvas_layer)
+
+		# Pause the game
+		get_tree().paused = true
+
+		# Make sure settings menu and canvas layer are not affected by pause
+		canvas_layer.process_mode = Node.PROCESS_MODE_ALWAYS
+		settings_menu_instance.process_mode = Node.PROCESS_MODE_ALWAYS
+	else:
+		# Close settings menu
+		var canvas_layer = settings_menu_instance.get_meta("canvas_layer")
+		canvas_layer.queue_free()
+		settings_menu_instance = null
+
+		# Unpause the game
+		get_tree().paused = false
