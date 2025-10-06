@@ -23,6 +23,17 @@ func _ready():
 	$"DeathOverlay/Menu/VBoxContainer/Play again".pressed.connect(_on_play_again_pressed)
 	$"DeathOverlay/Menu/VBoxContainer/Go to main menu".pressed.connect(_on_main_menu_pressed)
 
+func _process(_delta: float) -> void:
+	var time = $SuddenDeath.time_left
+	var minutes = int(time / 60)
+	var seconds = int(fmod(time, 60))
+	var msec = int(fmod(time, 1) * 1000) / 100
+	$HUD/Canvas/SuddenDeath.text = "%2d:%02d.%01d" % [minutes, seconds, msec]
+	
+	# Kill player if timer reaches 0
+	if $SuddenDeath.is_stopped() and not player.is_dead:
+		player.die()
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		toggle_settings_menu()
@@ -34,6 +45,9 @@ func _on_player_died():
 	var tile_map = $TileMapLayer
 	if tile_map and tile_map.has_method("reveal_all_bombs"):
 		tile_map.reveal_all_bombs()
+
+	# Stop timer
+	$SuddenDeath.stop()
 
 	show_death_screen()
 
