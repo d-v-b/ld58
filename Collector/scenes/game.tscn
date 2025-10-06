@@ -248,14 +248,12 @@ limit_bottom = 4096
 position_smoothing_enabled = true
 script = ExtResource("5_gee14")
 
-[node name="BombCountLabel" type="Label" parent="Player"]
-offset_left = -3.0
-offset_top = -120.0
-offset_right = 20.0
-offset_bottom = -28.0
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 32
-text = "5"
+[node name="BombCountLabel" type="HBoxContainer" parent="Player"]
+offset_left = -60.0
+offset_top = -80.0
+offset_right = 60.0
+offset_bottom = -50.0
+alignment = 1
 script = ExtResource("5_0tnpc")
 
 [node name="HUD" parent="." instance=ExtResource("4_lbhrr")]

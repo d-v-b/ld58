@@ -31,7 +31,6 @@ func _physics_process(delta):
 	var bombs_nearby = tile_map.count_bombs_in_range(global_position)
 
 	bomb_label.update_count(bombs_nearby)
-	bomb_label.text = str(bombs_nearby)
 	
 	if not is_dead:
 		if not is_on_floor():
