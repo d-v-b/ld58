@@ -7,6 +7,7 @@ signal score_updated
 
 func add_score(points: int) -> void:
 	score += points
+	new_score.emit()
 	
 func update() -> void:
 	emit_signal("score_updated")
