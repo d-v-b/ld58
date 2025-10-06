@@ -10,7 +10,7 @@ signal mine_signal
 @export var acceleration = 800.0
 @export var friction := 800.0
 @export var wall_friction := 400.0
-@export var wall_jumps : int = 1
+@export var wall_jumps : int = 0
 @export var wall_climb_speed := 200.0
 
 var wall_jumps_since_floor = 0
@@ -39,6 +39,8 @@ func _physics_process(delta):
 				# Wall climbing: if holding jump, climb up
 				if Input.is_action_pressed("action_jump"):
 					velocity.y = -wall_climb_speed
+				elif Input.is_action_pressed("hold_fast"):
+					velocity.y = 0
 				else:
 					velocity.y += (gravity - wall_friction) * delta
 			else:
