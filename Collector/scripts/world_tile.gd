@@ -9,6 +9,8 @@ const DENSITY_DIAMOND = 0.012
 
 var grid: Array[Array]
 
+var bag_position : Vector2
+
 var cheat_mode: bool = false
 func toggle_cheat_mode():
 	cheat_mode = !cheat_mode
@@ -17,6 +19,10 @@ func toggle_cheat_mode():
 		node.get_child(0).visible = cheat_mode
 
 func _ready() -> void:
+	var bag = get_node("../HUD/Canvas/Bag/Bag_Hole") as Control
+	bag_position = Vector2(bag.global_position)
+	print("bag_position = ", bag_position)
+	
 	for y in _size.y:
 		grid.append([])
 		for x in _size.x:

@@ -3,12 +3,12 @@
 [ext_resource type="FontFile" uid="uid://dakrty3k5eh2s" path="res://assets/PixelOperator8.ttf" id="1_6fi6k"]
 [ext_resource type="Texture2D" uid="uid://d4j6gx1bemhte" path="res://assets/coin_bag/background.png" id="2_5ysmq"]
 [ext_resource type="Texture2D" uid="uid://c3x8ivc55v4b4" path="res://assets/coin_bag/size-1.png" id="3_6fi6k"]
-[ext_resource type="Script" uid="uid://toxihfe7n6u5" path="res://scripts/timer.gd" id="5_047uy"]
+[ext_resource type="Script" path="res://scripts/timer.gd" id="5_047uy"]
 [ext_resource type="Script" uid="uid://b4i2vb4knaspe" path="res://scripts/score_label.gd" id="5_uo2fv"]
 
 [node name="HUD" type="CanvasLayer"]
 
-[node name="Control" type="Control" parent="."]
+[node name="Canvas" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,44 +17,37 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Score" type="RichTextLabel" parent="Control"]
-visible = false
-z_index = 4
+[node name="Bag" type="Control" parent="Canvas"]
 layout_mode = 1
-offset_left = 996.0
-offset_top = 453.0
-offset_right = 1072.6666
-offset_bottom = 591.36475
-scale = Vector2(1.5, 1.193)
-theme_override_colors/default_color = Color(0.827215, 0.82713777, 0.0006399465, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/normal_font = ExtResource("1_6fi6k")
-bbcode_enabled = true
-text = "1000"
-horizontal_alignment = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="Control"]
+[node name="Sprite2D" type="Sprite2D" parent="Canvas/Bag"]
 z_index = 1
-position = Vector2(1023, 546)
+position = Vector2(-100, -100)
 scale = Vector2(3, 3)
 texture = ExtResource("2_5ysmq")
 
-[node name="Sprite2D2" type="Sprite2D" parent="Control"]
+[node name="Sprite2D2" type="Sprite2D" parent="Canvas/Bag"]
 z_index = 3
-position = Vector2(1023, 546)
+position = Vector2(-100, -100)
 scale = Vector2(3, 3)
 texture = ExtResource("3_6fi6k")
 
-[node name="scoreLabel" type="Label" parent="Control"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = 400.0
-offset_top = 446.0
-offset_right = 517.0
-offset_bottom = 480.0
-grow_horizontal = 2
+[node name="scoreLabel" type="Label" parent="Canvas/Bag"]
+z_index = 4
+layout_mode = 0
+offset_left = -100.0
+offset_top = -100.0
+offset_right = -72.0
+offset_bottom = -68.0
 theme_override_colors/font_color = Color(0.78419566, 0.71520454, 1.540184e-06, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
@@ -63,6 +56,13 @@ theme_override_font_sizes/font_size = 32
 text = "0"
 horizontal_alignment = 1
 script = ExtResource("5_uo2fv")
+
+[node name="Bag_Hole" type="Control" parent="Canvas/Bag"]
+anchors_preset = 0
+offset_left = -91.0
+offset_top = -140.0
+offset_right = -70.0
+offset_bottom = -123.0
 
 [node name="Timer" type="Panel" parent="."]
 anchors_preset = 1

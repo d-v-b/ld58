@@ -70,7 +70,7 @@ func destroy() -> void:
 	
 
 	var hud = tile_map.get_node("../HUD")
-	var end_pos = Vector2(tile_map.get_viewport_rect().size.x * 0.9, tile_map.get_viewport_rect().size.y * 0.78)
+	var end_pos = tile_map.bag_position#Vector2(tile_map.get_viewport_rect().size.x * 0.9, tile_map.get_viewport_rect().size.y * 0.78)
 	
 	for i in score:
 		var color = Color(0.824, 0.658, 0.385, 1.0)
