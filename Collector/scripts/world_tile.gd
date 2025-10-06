@@ -290,6 +290,19 @@ func update_bomb_glow(cell: WorldCell) -> void:
 	var isolated = is_bomb_isolated(cell)
 	cell.set_glow(isolated)
 	if isolated:
+		var popup = Label.new()
+		popup.text = "+%d" % 150
+		popup.add_theme_font_size_override("font_size", 24)
+		popup.add_theme_color_override("font_color", Color(0.95, 0.85, 0.4))
+		popup.add_theme_color_override("font_outline_color", Color(0, 0, 0))
+		popup.add_theme_constant_override("outline_size", 2)
+		popup.position = cell.world_position
+		popup.z_index = 10
+
+		var script = load("res://scripts/score_popup.gd")
+		popup.set_script(script)
+
+		get_tree().root.add_child(popup)
 		Globals.add_score(150)
 
 
