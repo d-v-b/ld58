@@ -93,7 +93,7 @@ func _on_cell_scored(score: int, world_pos: Vector2) -> void:
 		popup.add_theme_color_override("font_color", Color.PURPLE)
 	elif score == 50:
 		popup.add_theme_color_override("font_color", Color.GRAY)
-	popup.add_theme_color_override("font_outline_color", Color(0, 0, 0))
+	popup.add_theme_color_override("font_outline_color", Color.BLACK)
 	popup.add_theme_constant_override("outline_size", 2)
 	#popup.position = player.global_position + Vector2(-20, -80)  # Above player's head
 	popup.position = world_pos # Above cell
@@ -214,31 +214,9 @@ func choose_air_offset(x: int, y: int) -> Vector2i:
 	return Vector2i(0, 0)
 
 func count_adjacent_bombs(grid_position: Vector2i) -> int:
-	var directions = [
-		Vector2i(-1, -1), Vector2i(0, -1), Vector2i(1, -1),
-		Vector2i(-1,  0),                  Vector2i(1,  0),
-		Vector2i(-1,  1), Vector2i(0,  1), Vector2i(1,  1),
-	]
 	var count = 0
-
-	for dir in directions:
-		var check = grid_position + dir
-		if check.y >= 0 and check.y < grid.size() and check.x >= 0 and check.x < grid[0].size():
-				var cell = grid[check.y][check.x]
-				if cell and cell.is_bomb and cell.value != 0:
-					count += 1
-	return count
-
-func count_bombs_in_range(world_position: Vector2) -> int:
-	var count = 0
-	var grid_pos := position_world_to_grid(world_position)
-	if world_position.x < 0:
-		grid_pos.x = -1
-	if world_position.y < 0:
-		grid_pos.y = -1
-
 	var _limit = func calc_limit(pos: Vector2i) -> Vector2i:
-		return (grid_pos + pos).max(Vector2i(0, 0)).min(_size - Vector2i(1, 1))
+		return (grid_position + pos).max(Vector2i(0, 0)).min(_size - Vector2i(1, 1))
 	var directions = {
 		_limit.call(Vector2i(-1, -1)): null,
 		_limit.call(Vector2i(-1,  0)): null,
@@ -256,6 +234,15 @@ func count_bombs_in_range(world_position: Vector2) -> int:
 			count += 1
 
 	return count
+
+func count_bombs_in_range(world_position: Vector2) -> int:
+	#var count = 0
+	var grid_pos := position_world_to_grid(world_position)
+	if world_position.x < 0:
+		grid_pos.x = -1
+	if world_position.y < 0:
+		grid_pos.y = -1
+	return count_adjacent_bombs(grid_pos)
 
 func is_bomb_isolated(cell: WorldCell) -> bool:
 	if not cell.is_bomb or cell.value == 0:

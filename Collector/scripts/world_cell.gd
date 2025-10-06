@@ -37,7 +37,7 @@ func build() -> void:
 	if is_bomb:
 		mining_block = MiningBlockFactory.create(MiningBlock.MiningBlockType.BOMB, world, world_position, position)
 		var mining_block_selector = tile_highlight.instantiate()
-		mining_block_selector.overlay_color = Color(1, 0, 0)
+		mining_block_selector.overlay_color = Color.RED
 		mining_block_selector.current = mining_block
 		tile_map.add_child(mining_block_selector)
 		mining_block_selector.get_child(0).visible = false
@@ -50,15 +50,11 @@ func build() -> void:
 var explosion_frames = preload("res://assets/explosion_frames.tres")
 var explosion_sprite : AnimatedSprite2D
 
-func destroy() -> void:
+func destroy(score_modifier: int) -> void:
 	if value == 0 or not mining_block: return
 
 	# Calculate score based on nearby bombs
-	var nearby_bombs = tile_map.count_adjacent_bombs(position)
-	var score = nearby_bombs * 10
-	
-	if is_bomb:
-		score = 0
+	var score = 0 if is_bomb else score_modifier * 10
 
 	# Emit score for popup
 	if score > 0:
@@ -107,8 +103,8 @@ func destroy() -> void:
 	destroyed.emit(position)
 
 
-func _on_destroy() -> void:	
-	destroy()
+func _on_destroy(score_modifier: int) -> void:	
+	destroy(score_modifier)
 	
 func _on_explosion_finished() -> void:
 	if explosion_sprite:

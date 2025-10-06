@@ -5,7 +5,7 @@ var explosion_radius = 1280;
 func _init(_world : World2D, world_position: Vector2, _tile_position: Vector2i) -> void:
 	super._init(_world, world_position, _tile_position)
 
-func _on_destroy() -> void:
+func _on_destroy(score_modifier: int) -> void:
 	print("BANG")
 	
 	# Define the explosion shape — e.g., a circular area
@@ -28,4 +28,4 @@ func _on_destroy() -> void:
 			if collider.has_method("on_hit"):
 				collider.on_hit()
 
-	super._on_destroy()
+	super._on_destroy(score_modifier)
