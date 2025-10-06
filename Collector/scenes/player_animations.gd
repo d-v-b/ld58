@@ -20,7 +20,12 @@ func _process(delta: float) -> void:
 	
 	if !player.is_on_floor() and !player.is_on_wall(): new_anim = "jump"
 	
-	if player.is_on_wall_only(): new_anim = "climb"
+	if player.is_on_wall_only(): 
+		if abs(player.velocity.y) > 0.1:
+			new_anim = "climb"
+		else:
+			new_anim = "climb-idle"
+		
 
 	if animation!= "mine" && animation != new_anim:
 		if (new_anim == "hard_turn"): _do_hard_turn(player.direction)

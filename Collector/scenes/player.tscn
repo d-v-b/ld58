@@ -152,6 +152,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_a8ls1")
+}],
+"loop": true,
+"name": &"climb-idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_d2wvv")
 }],
 "loop": true,
@@ -244,7 +252,7 @@ z_index = 1
 position = Vector2(0, -8)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_3v2ag")
-animation = &"climb"
+animation = &"climb-idle"
 autoplay = "idle"
 script = ExtResource("5_qlg0r")
 

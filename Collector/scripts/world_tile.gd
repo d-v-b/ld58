@@ -294,7 +294,9 @@ func update_bomb_glow(cell: WorldCell) -> void:
 
 		get_tree().root.add_child(popup)
 		Globals.add_score(150)
-
+		
+		cell.reveal()
+		
 
 func reveal_all_bombs() -> void:
 	for y in _size.y:
