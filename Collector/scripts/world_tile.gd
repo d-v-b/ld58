@@ -85,10 +85,13 @@ func _on_cell_scored(score: int, world_pos: Vector2) -> void:
 
 	get_tree().root.add_child(popup)
 	
+	
 func destroy_cell(cell: WorldCell) -> void:
 	set_cell(cell.position, 1, Vector2i(4, 0)  + choose_air_offset(cell.position.x, cell.position.y))
 	update_neighbours(cell)
+		
 	cell.destroyed.disconnect(_on_cell_destroyed)
+
 	
 func update_neighbours(cell: WorldCell) -> void:
 	var x = cell.position.x
