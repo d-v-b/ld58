@@ -13,8 +13,8 @@ signal mine
 signal destroy
 signal damaged(current_health: int, max_health: int)
 
-var health: int = 5
-var max_health: int = 5
+var health: int = 2
+var max_health: int = 2
 var position: Vector2
 var tile_position : Vector2i
 var world : World2D

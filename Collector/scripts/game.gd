@@ -1,4 +1,3 @@
-extends Node2D
 
 @onready var player = $Player
 @onready var death_overlay = $DeathOverlay
@@ -18,7 +17,10 @@ func _ready():
 		push_error("Player node not found!")
 
 	death_overlay.visible = false
-
+	
+	var timer = $"HUD/Timer"
+	timer.start()
+	timer.timeout.connect(_on_timer_timeout)
 	# Connect button signals
 	$"DeathOverlay/Menu/VBoxContainer/Play again".pressed.connect(_on_play_again_pressed)
 	$"DeathOverlay/Menu/VBoxContainer/Go to main menu".pressed.connect(_on_main_menu_pressed)
@@ -29,6 +31,7 @@ func _input(event: InputEvent) -> void:
 
 func _on_player_died():
 	print('the player died')
+	$"HUD/Timer".stop()
 
 	# Reveal all bombs
 	var tile_map = $TileMapLayer
@@ -85,3 +88,6 @@ func toggle_settings_menu() -> void:
 
 		# Unpause the game
 		get_tree().paused = false
+
+func _on_timer_timeout():
+	$Player.die()
