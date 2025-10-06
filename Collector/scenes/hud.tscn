@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bgh183yp2hi7y"]
+[gd_scene load_steps=5 format=3 uid="uid://bgh183yp2hi7y"]
 
 [ext_resource type="FontFile" uid="uid://dakrty3k5eh2s" path="res://assets/PixelOperator8.ttf" id="1_6fi6k"]
-[ext_resource type="Script" uid="uid://cue6l7ikic8h2" path="res://scripts/score.gd" id="1_ahhtf"]
 [ext_resource type="Texture2D" uid="uid://d4j6gx1bemhte" path="res://assets/coin_bag/background.png" id="2_5ysmq"]
 [ext_resource type="Texture2D" uid="uid://c3x8ivc55v4b4" path="res://assets/coin_bag/size-1.png" id="3_6fi6k"]
-[ext_resource type="Script" uid="uid://b4i2vb4knaspe" path="res://scripts/label.gd" id="5_uo2fv"]
+[ext_resource type="Script" uid="uid://b4i2vb4knaspe" path="res://scripts/score_label.gd" id="5_uo2fv"]
 
 [node name="HUD" type="CanvasLayer"]
 
@@ -32,7 +31,6 @@ theme_override_fonts/normal_font = ExtResource("1_6fi6k")
 bbcode_enabled = true
 text = "1000"
 horizontal_alignment = 1
-script = ExtResource("1_ahhtf")
 
 [node name="Sprite2D" type="Sprite2D" parent="Control"]
 z_index = 1
@@ -46,7 +44,7 @@ position = Vector2(1023, 546)
 scale = Vector2(3, 3)
 texture = ExtResource("3_6fi6k")
 
-[node name="Label" type="Label" parent="Control"]
+[node name="scoreLabel" type="Label" parent="Control"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -61,6 +59,6 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("1_6fi6k")
 theme_override_font_sizes/font_size = 32
-text = "1000"
+text = "0"
 horizontal_alignment = 1
 script = ExtResource("5_uo2fv")
