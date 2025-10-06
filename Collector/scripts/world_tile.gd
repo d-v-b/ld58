@@ -273,6 +273,8 @@ func update_bomb_glow(cell: WorldCell) -> void:
 
 	var isolated = is_bomb_isolated(cell)
 	cell.set_glow(isolated)
+	if isolated:
+		Globals.add_score(150)
 
 
 func reveal_all_bombs() -> void:
