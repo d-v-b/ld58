@@ -147,17 +147,35 @@ func is_input_modified(action: String) -> bool:
 	for i in range(pending_events.size()):
 		var pending = pending_events[i]
 		var saved = saved_events[i]
-		if pending is InputEventKey and saved is InputEventKey:
-			if pending.keycode != saved.keycode or pending.physical_keycode != saved.physical_keycode:
-				return true
-		elif pending is InputEventMouseButton and saved is InputEventMouseButton:
-			if pending.button_index != saved.button_index:
-				return true
-		else:
-			# Different types
+
+		if not events_equal(pending, saved):
 			return true
 
 	return false
+
+func events_equal(event1: InputEvent, event2: InputEvent) -> bool:
+	# Compare two input events for equality
+	if event1 == null and event2 == null:
+		return true
+	if event1 == null or event2 == null:
+		return false
+
+	if event1 is InputEventKey and event2 is InputEventKey:
+		# Compare both keycode and physical_keycode
+		# If either keycode is 0, compare physical_keycode only
+		if event1.keycode == 0 or event2.keycode == 0:
+			return event1.physical_keycode == event2.physical_keycode
+		elif event1.physical_keycode == 0 or event2.physical_keycode == 0:
+			return event1.keycode == event2.keycode
+		else:
+			# Both have values, they should match
+			return (event1.keycode == event2.keycode and
+					event1.physical_keycode == event2.physical_keycode)
+	elif event1 is InputEventMouseButton and event2 is InputEventMouseButton:
+		return event1.button_index == event2.button_index
+	else:
+		# Different types
+		return false
 
 func _on_remap_button_pressed(action: String, button: Button, event_index: int) -> void:
 	awaiting_input = action

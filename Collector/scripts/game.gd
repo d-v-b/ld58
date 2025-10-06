@@ -1,3 +1,4 @@
+extends Node2D
 
 @onready var player = $Player
 @onready var death_overlay = $DeathOverlay
