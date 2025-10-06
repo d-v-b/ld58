@@ -6,9 +6,9 @@
 [ext_resource type="Script" uid="uid://upb4cf8v7m5a" path="res://scripts/world_tile.gd" id="3_vtaks"]
 [ext_resource type="PackedScene" uid="uid://bgh183yp2hi7y" path="res://scenes/hud.tscn" id="4_lbhrr"]
 [ext_resource type="Script" uid="uid://c8d5eey6t21gm" path="res://scripts/bomb_count_label.gd" id="5_0tnpc"]
-[ext_resource type="Script" uid="uid://1cvln46xw26y" path="res://scripts/camera_2d.gd" id="5_gee14"]
-[ext_resource type="Script" uid="uid://bktje4fucrms" path="res://scripts/score-label.gd" id="8_kvpfn"]
-[ext_resource type="Script" uid="uid://c6yi5dv3sbpre" path="res://scripts/score-label_2.gd" id="10_dinhu"]
+[ext_resource type="Script" path="res://scripts/camera_2d.gd" id="5_gee14"]
+[ext_resource type="Script" path="res://scripts/score-label.gd" id="8_kvpfn"]
+[ext_resource type="Script" path="res://scripts/score-label_2.gd" id="10_dinhu"]
 [ext_resource type="FontFile" uid="uid://dakrty3k5eh2s" path="res://assets/PixelOperator8.ttf" id="10_vtaks"]
 [ext_resource type="Texture2D" uid="uid://gbir15ew0fxx" path="res://assets/underground_background.png" id="12_dinhu"]
 [ext_resource type="PackedScene" uid="uid://d2oyp2jbjhicj" path="res://scenes/parallax_background.tscn" id="13_kvuet"]
@@ -399,9 +399,22 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("10_vtaks")
 theme_override_font_sizes/font_size = 16
 text = "Lots of treasure buried down there.
-Just watch out for those mines.
-That number over your head counts the mines
-buried near you. 
+Just watch out for those bombs.
+That number over your head counts the bombs
+buried around you. 
 
 More risk, more reward!
 "
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -10000.0
+offset_top = -5008.0
+offset_bottom = 4992.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+offset_left = 1408.0
+offset_top = -5011.0
+offset_right = 11408.0
+offset_bottom = 4989.0
+color = Color(0, 0, 0, 1)

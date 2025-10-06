@@ -110,6 +110,26 @@ func _on_explosion_finished() -> void:
 	if explosion_sprite:
 		explosion_sprite.queue_free()
 
+var reveal_frames = preload("res://assets/reveal_frames.tres")
+var reveal_sprite : AnimatedSprite2D
+		
+func reveal() -> void:
+	if not is_bomb:
+		return
+	reveal_sprite = AnimatedSprite2D.new()
+	reveal_sprite.sprite_frames = reveal_frames
+	reveal_sprite.animation = "default"
+	reveal_sprite.play()
+	reveal_sprite.scale = Vector2(4, 4)
+	reveal_sprite.position = world_position
+	tile_map.add_child(reveal_sprite)
+	
+	reveal_sprite.connect("animation_finished", Callable(self, "_on_reveal_finished"))
+		
+func _on_reveal_finished():
+	if reveal_sprite:
+		reveal_sprite.queue_free()
+
 func _on_damaged(current_health: int, max_health: int) -> void:
 	# Calculate damage percentage (0.0 = full health, 1.0 = almost destroyed)
 	var damage_percentage = 1.0 - (float(current_health) / float(max_health))
