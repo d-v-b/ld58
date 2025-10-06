@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bgh183yp2hi7y"]
+[gd_scene load_steps=5 format=3 uid="uid://bgh183yp2hi7y"]
 
 [ext_resource type="FontFile" uid="uid://dakrty3k5eh2s" path="res://assets/PixelOperator8.ttf" id="1_6fi6k"]
 [ext_resource type="Texture2D" uid="uid://d4j6gx1bemhte" path="res://assets/coin_bag/background.png" id="2_5ysmq"]
@@ -43,10 +43,10 @@ texture = ExtResource("3_6fi6k")
 [node name="scoreLabel" type="Label" parent="Canvas/Bag"]
 z_index = 4
 layout_mode = 0
-offset_left = -100.0
-offset_top = -100.0
-offset_right = -72.0
-offset_bottom = -68.0
+offset_left = -189.0
+offset_top = -19.0
+offset_right = 36.0
+offset_bottom = 44.0
 theme_override_colors/font_color = Color(0.78419566, 0.71520454, 1.540184e-06, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10

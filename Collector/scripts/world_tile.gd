@@ -79,14 +79,17 @@ func _on_cell_scored(score: int, world_pos: Vector2) -> void:
 	# Create score popup
 	var popup = Label.new()
 	popup.text = "+%d" % score
-	popup.add_theme_font_size_override("font_size", 24)
 	if score == 10:
+		popup.add_theme_font_size_override("font_size", 24)
 		popup.add_theme_color_override("font_color", Color.GREEN_YELLOW)
 	elif score == 20:
+		popup.add_theme_font_size_override("font_size", 28)
 		popup.add_theme_color_override("font_color", Color.YELLOW)
 	elif score == 30:
+		popup.add_theme_font_size_override("font_size", 32)
 		popup.add_theme_color_override("font_color", Color.RED)
 	elif score == 40:
+		popup.add_theme_font_size_override("font_size", 36)
 		popup.add_theme_color_override("font_color", Color.PURPLE)
 	elif score == 50:
 		popup.add_theme_color_override("font_color", Color.GRAY)
@@ -292,7 +295,7 @@ func update_bomb_glow(cell: WorldCell) -> void:
 	if isolated:
 		var popup = Label.new()
 		popup.text = "+%d" % 150
-		popup.add_theme_font_size_override("font_size", 24)
+		popup.add_theme_font_size_override("font_size", 60)
 		popup.add_theme_color_override("font_color", Color(0.95, 0.85, 0.4))
 		popup.add_theme_color_override("font_outline_color", Color(0, 0, 0))
 		popup.add_theme_constant_override("outline_size", 2)
