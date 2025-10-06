@@ -26,7 +26,6 @@ func _on_destroy() -> void:
 	for result in results:
 		var collider = result.get("collider")
 		if collider:
-			print("Hit:", collider.name)
 			if collider.has_method("on_hit"):
 				collider.on_hit()
 

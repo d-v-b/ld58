@@ -12,6 +12,8 @@ var end_pos
 var starting_velocity : Vector2
 var velocity : Vector2
 
+var value = 1
+
 
 func _init(colour : Color, _start_pos : Vector2, _end_pos : Vector2) -> void:
 	color = colour# * (randf() - 0.5)
@@ -34,7 +36,7 @@ func _physics_process(delta: float) -> void:
 	
 	var distance_to_end = (end_pos - position).length()
 	if (distance_to_end < 30):
-		Globals.update()
+		Globals.add_score(value)
 		queue_free()
 	
 	# progress (0 at start, 1 at end)
@@ -49,5 +51,7 @@ func _physics_process(delta: float) -> void:
 	velocity = lerp(starting_velocity, direction_to_bag, min(1.0, age))
 	position += velocity * delta
 
+
 	if age > 3.0:
+		Globals.add_score(value)
 		queue_free()

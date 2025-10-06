@@ -46,6 +46,9 @@ func build() -> void:
 
 	mining_block.destroy.connect(_on_destroy)
 	mining_block.damaged.connect(_on_damaged)
+	
+var explosion_frames = preload("res://assets/explosion_frames.tres")
+var explosion_sprite : AnimatedSprite2D
 
 func destroy() -> void:
 	if value == 0 or not mining_block: return
@@ -57,7 +60,7 @@ func destroy() -> void:
 	# Emit score for popup
 	if score > 0:
 		scored.emit(score, world_position)
-		Globals.add_score(score)
+		#Globals.add_score(score)
 
 	for i in 32:
 		var color = Color(0.404, 0.275, 0.239) if value == 1 else Color(0.392, 0.408, 0.427, 1.0)
@@ -82,6 +85,17 @@ func destroy() -> void:
 	if glow_overlay:
 		glow_overlay.queue_free()
 		glow_overlay = null
+		
+	if (is_bomb):
+		explosion_sprite = AnimatedSprite2D.new()
+		explosion_sprite.sprite_frames = explosion_frames
+		explosion_sprite.animation = "explode"
+		explosion_sprite.play()
+		explosion_sprite.scale = Vector2(4, 4)
+		explosion_sprite.position = world_position
+		tile_map.add_child(explosion_sprite)
+		
+		explosion_sprite.connect("animation_finished", Callable(self, "_on_explosion_finished"))
 
 	value = 0
 	mining_block.destroy.disconnect(_on_destroy)
@@ -89,8 +103,13 @@ func destroy() -> void:
 	mining_block = null
 	destroyed.emit(position)
 
-func _on_destroy() -> void:
+
+func _on_destroy() -> void:	
 	destroy()
+	
+func _on_explosion_finished() -> void:
+	if explosion_sprite:
+		explosion_sprite.queue_free()
 
 func _on_damaged(current_health: int, max_health: int) -> void:
 	# Calculate damage percentage (0.0 = full health, 1.0 = almost destroyed)
