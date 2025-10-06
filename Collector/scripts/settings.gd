@@ -4,7 +4,7 @@ extends Node
 const SETTINGS_FILE = "user://settings.cfg"
 
 # Audio settings
-var master_volume: float = 1.0
+var master_volume: float = 0.75
 var music_volume: float = 1.0
 var sfx_volume: float = 1.0
 
@@ -80,6 +80,10 @@ func apply_settings() -> void:
 	var master_bus = AudioServer.get_bus_index("Master")
 	AudioServer.set_bus_volume_db(master_bus, linear_to_db(master_volume))
 
+	var music_bus = AudioServer.get_bus_index("Music")
+	if music_bus != -1:
+		AudioServer.set_bus_volume_db(music_bus, linear_to_db(music_volume))
+
 	# Apply custom input mappings
 	for action in custom_inputs:
 		if InputMap.has_action(action):
@@ -106,6 +110,9 @@ func set_master_volume(value: float) -> void:
 
 func set_music_volume(value: float) -> void:
 	music_volume = clamp(value, 0.0, 1.0)
+	var music_bus = AudioServer.get_bus_index("Music")
+	if music_bus != -1:
+		AudioServer.set_bus_volume_db(music_bus, linear_to_db(music_volume))
 	save_settings()
 	emit_signal("settings_changed")
 
