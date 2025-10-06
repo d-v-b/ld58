@@ -403,8 +403,16 @@ Just watch out for those bombs.
 That number over your head counts the bombs
 buried around you. 
 
+Collect diamonds to delay the innevitable!
+
 More risk, more reward!
 "
+
+[node name="SuddenDeath" type="Timer" parent="."]
+wait_time = 300.0
+one_shot = true
+autostart = true
+ignore_time_scale = true
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = -10000.0

@@ -16,15 +16,14 @@ func _ready() -> void:
 	
 	hud = get_node("../../HUD")
 	
-
-
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Player" and not flying:
 
 		
 		# Create score popup
 		var popup = Label.new()
-		popup.text = "+%d" % score
+		popup.text = "+0:20.0\n+%d" % score
+		popup.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		popup.add_theme_font_size_override("font_size", 48)
 		popup.add_theme_color_override("font_color", Color(0.0, 0.85, 0.85))
 		popup.add_theme_color_override("font_outline_color", Color(0, 0, 0))
@@ -40,6 +39,10 @@ func _on_body_entered(body: Node2D) -> void:
 		anim.play("Collected")
 		_fly_to_bag()
 		await anim.animation_finished
+		
+		var timer = get_node("../../SuddenDeath")
+		timer.start(timer.time_left + 20)
+		
 		queue_free()
 		
 		
