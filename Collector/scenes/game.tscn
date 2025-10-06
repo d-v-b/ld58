@@ -405,3 +405,16 @@ buried around you.
 
 More risk, more reward!
 "
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -10000.0
+offset_top = -5008.0
+offset_bottom = 4992.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+offset_left = 1408.0
+offset_top = -5011.0
+offset_right = 11408.0
+offset_bottom = 4989.0
+color = Color(0, 0, 0, 1)
