@@ -39,6 +39,7 @@ func load_settings() -> void:
 
 	if err != OK:
 		# No settings file exists yet, use defaults
+		print("Settings: No saved settings file found (", err, "), using defaults")
 		return
 
 	# Load audio settings
@@ -54,6 +55,8 @@ func load_settings() -> void:
 	else:
 		custom_inputs = {}
 
+	print("Settings: Loaded successfully")
+
 func save_settings() -> void:
 	var config = ConfigFile.new()
 
@@ -65,7 +68,12 @@ func save_settings() -> void:
 	# Save custom input mappings
 	config.set_value("input", "custom_inputs", custom_inputs)
 
-	config.save(SETTINGS_FILE)
+	var err = config.save(SETTINGS_FILE)
+	if err != OK:
+		push_error("Settings: Failed to save settings file: " + str(err))
+		print("Settings: Save failed with error ", err)
+	else:
+		print("Settings: Saved successfully")
 
 func apply_settings() -> void:
 	# Apply audio settings
